@@ -39,7 +39,7 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
   public
   String getProtocolName()
   {
-    return sPROTOCOL_JSONRPC;
+    return sPROTOCOL_XMLRPC;
   }
   
   public
