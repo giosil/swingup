@@ -1,36 +1,15 @@
-/* Copyright (c) 2002 by ISED S.p.A. - All Rights Reserved.
- *
- * This software is the confidential and proprietary information
- * of ISED S.p.A. ("Confidential Information").  You shall not
- * disclose such Confidential Information and shall use it only
- * in accordance with the terms of the license agreement you
- * entered into with ISED S.p.A.
- *
- * ISED S.p.A. MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE
- * SUITABILITY OF THE SOFTWARE, EITHER EXPRESS OR IMPLIED, INCLUDING
- * BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.
- * ISED S.p.A. SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY
- * LICENSEE AS A RESULT OF USING, MODIFYING OR DISTRIBUTING
- * THIS SOFTWARE OR ITS DERIVATIVES.
- *
- */
-
 package org.dew.swingup.util;
 
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
 
 /**
  * Utilita' per addattare la larghezza delle colonne di una JTable.
- *
- * @since jdk1.3
- * @author <a href="mailto:madonna@ised.it">Giuseppe Madonna</a>
- * @version 0.00.001, 00-Month-2002
  */
 public
 class TableColumnResizer

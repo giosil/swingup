@@ -157,7 +157,6 @@ class DefaultSessionManager implements ISessionManager
   {
     List oResult = new ArrayList(3);
     oResult.add("DEFAULT");
-    oResult.add("ISED");
     oResult.add("EXTERNAL");
     return oResult;
   }
