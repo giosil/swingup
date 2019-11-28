@@ -1,4 +1,4 @@
-package org.dew.xmlrpc;
+package org.dew.xml.rpc;
 
 /*
  * The Apache Software License, Version 1.1
@@ -55,22 +55,27 @@ package org.dew.xmlrpc;
  * <http://www.apache.org/>.
  */
 
-import java.net.URL;
-
 /**
- * A callback interface for an asynchronous XML-RPC call.
+ * This is thrown by the XmlRpcClient if the remote server reported an error.
+ * If something went wrong at a lower level(e.g. no http connection) an
+ * IOException will be thrown instead.
  *
  * @author <a href="mailto:hannes@apache.org">Hannes Wallnoefer</a>
  */
-public interface AsyncCallback
+public class XmlRpcException
+extends Exception
 {
+  private static final long serialVersionUID = -947230241363532951L;
   /**
-   * Call went ok, handle result.
+   * The fault code of the exception. For servers based on this library, this will always be 0.
+   * (If there are predefined error codes, they should be in the XML-RPC spec.)
    */
-  public void handleResult(Object result, URL url, String method);
+  public final int code;
   
-  /**
-   * Something went wrong, handle error.
-   */
-  public void handleError(Exception exception, URL url, String method);
+  public XmlRpcException (int code, String message)
+  {
+    super(message);
+    this.code = code;
+  }
+  
 }

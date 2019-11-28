@@ -4,8 +4,11 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import org.dew.xml.rpc.client.XmlRpcInvoker;
+
+import org.dew.rpc.client.AsyncCallback;
+
 import org.dew.swingup.*;
-import org.dew.xmlrpc.*;
 
 /**
  * Implementazione di AGUIRPCClient che utilizza il protocollo XML-RPC.
@@ -17,15 +20,15 @@ import org.dew.xmlrpc.*;
 public
 class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
 {
-  private XmlRpcClient firstRpcClient;
-  private XmlRpcClient bakRpcClient;
+  private XmlRpcInvoker firstRpcClient;
+  private XmlRpcInvoker bakRpcClient;
   
   private String sURL;
   private String sSessionId;
   
   private String    sMethodCall = null;
   private Object    oResult     = null;
-  private Exception oException  = null;
+  private Throwable oException  = null;
   
   public
   GuiXmlRpcClient()
@@ -36,7 +39,7 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
   public
   String getProtocolName()
   {
-    return sPROTOCOL_XMLRPC;
+    return sPROTOCOL_JSONRPC;
   }
   
   public
@@ -54,24 +57,20 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
     // Nel caso in cui l'id di sessione e' gia' stato impostato si crea il client
     // appendendo alla URL il parametro standard jsessionid.
     if(sSessionId != null && sSessionId.length() > 0) {
-      firstRpcClient = new XmlRpcClient(sURL + ";jsessionid=" + sSessionId);
+      firstRpcClient = new XmlRpcInvoker(sURL + ";jsessionid=" + sSessionId);
     }
     else {
-      firstRpcClient = new XmlRpcClient(sURL);
+      firstRpcClient = new XmlRpcInvoker(sURL);
     }
-    if(sBACKUP != null && sBACKUP.length() > 0) {
-      bakRpcClient = new XmlRpcClient(sBACKUP);
+    if(sBACKUP != null) {
+      bakRpcClient = new XmlRpcInvoker(sBACKUP);
     }
     this.sURL = sURL;
-    
-    // Nella nuova libreria nella quale e' stata riscritta (senza cambiarla)
-    // l'interfaccia di org.apache.xmlrpc.XmlRpcClient e' stato utilizzato
-    // il metodo equals per passare ulteriori configurazioni.
-    if(firstRpcClient != null) firstRpcClient.equals(new Integer(iTimeOut));
-    if(bakRpcClient   != null) bakRpcClient.equals(new Integer(iTimeOut));
+    if(firstRpcClient != null) firstRpcClient.getTransport().setTimeOut(iTimeOut);
+    if(bakRpcClient   != null) bakRpcClient.getTransport().setTimeOut(iTimeOut);
     if(mapHeaders != null && !mapHeaders.isEmpty()) {
-      if(firstRpcClient != null) firstRpcClient.equals(mapHeaders);
-      if(bakRpcClient   != null) bakRpcClient.equals(mapHeaders);
+      if(firstRpcClient != null) firstRpcClient.getTransport().setHeaders(mapHeaders);
+      if(bakRpcClient   != null) bakRpcClient.getTransport().setHeaders(mapHeaders);
     }
   }
   
@@ -79,19 +78,16 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
   void setHeaders(Map mapHeaders)
   {
     super.setHeaders(mapHeaders);
-    // Nella nuova libreria nella quale e' stata riscritta (senza cambiarla)
-    // l'interfaccia di org.apache.xmlrpc.XmlRpcClient e' stato utilizzato
-    // il metodo equals per passare la mappa degli Headers.
-    if(firstRpcClient != null) firstRpcClient.equals(mapHeaders);
-    if(bakRpcClient   != null) bakRpcClient.equals(mapHeaders);
+    if(firstRpcClient != null) firstRpcClient.getTransport().setHeaders(mapHeaders);
+    if(bakRpcClient   != null) bakRpcClient.getTransport().setHeaders(mapHeaders);
   }
   
   public
   void setTimeOut(int iTimeOut)
   {
     super.setTimeOut(iTimeOut);
-    if(firstRpcClient != null) firstRpcClient.equals(new Integer(iTimeOut));
-    if(bakRpcClient   != null) bakRpcClient.equals(new Integer(iTimeOut));
+    if(firstRpcClient != null) firstRpcClient.getTransport().setTimeOut(iTimeOut);
+    if(bakRpcClient   != null) bakRpcClient.getTransport().setTimeOut(iTimeOut);
   }
   
   public
@@ -130,7 +126,7 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
       "&credential=" + URLEncoder.encode(sTheCredential, "UTF-8"));
     System.out.println(ResourcesMgr.sLOG_PREFIX + " HTTP session " + sSessionId + " opened");
     if(sSessionId != null && sSessionId.trim().length() > 0) {
-      firstRpcClient = new XmlRpcClient(sURL + ";jsessionid=" + sSessionId);
+      firstRpcClient = new XmlRpcInvoker(sURL + ";jsessionid=" + sSessionId);
       // Quando si mantiene la sessione non e' supportato lo switch sul backup...
       bakRpcClient = null;
     }
@@ -164,7 +160,7 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
     this.sSessionId = sSessionId;
     
     if(sSessionId != null && sSessionId.trim().length() > 0 && firstRpcClient != null) {
-      firstRpcClient = new XmlRpcClient(sURL + ";jsessionid=" + sSessionId);
+      firstRpcClient = new XmlRpcInvoker(sURL + ";jsessionid=" + sSessionId);
       // Quando si gestisce la sessione non e' supportato lo switch sul backup...
       bakRpcClient = null;
     }
@@ -180,7 +176,7 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
     oException   = null;
     
     if(iTimeOut > 0) {
-      firstRpcClient.executeAsync(sMethod, vParameters, this);
+      firstRpcClient.invokeAsync(sMethod, vParameters, this);
       while(!sMethod.equals(sMethodCall)) {
         Thread.sleep(100);
         iElapsed += 100;
@@ -190,7 +186,7 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
       }
     }
     else {
-      firstRpcClient.executeAsync(sMethod, vParameters, new EmptyAsyncCallback());
+      firstRpcClient.invokeAsync(sMethod, vParameters, null);
       return null;
     }
     
@@ -198,15 +194,6 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
       String sMessage = oException.getMessage();
       if(oException instanceof IOException) {
         throw new IOException(sMessage);
-      }
-      else
-      if(oException instanceof XmlRpcException) {
-        if(((XmlRpcException) oException).code == -1) {
-          throw new RPCInvalidSessionException();
-        }
-        else {
-          throw new Exception(((XmlRpcException) oException).code + ": " + sMessage);
-        }
       }
       else {
         throw new Exception(sMessage);
@@ -227,7 +214,7 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
       oException   = null;
       
       if(iTimeOut > 0) {
-        bakRpcClient.executeAsync(sMethod, vParameters, this);
+        bakRpcClient.invokeAsync(sMethod, vParameters, this);
         while(!sMethod.equals(sMethodCall)) {
           Thread.sleep(100);
           iElapsed += 100;
@@ -237,7 +224,7 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
         }
       }
       else {
-        bakRpcClient.executeAsync(sMethod, vParameters, new EmptyAsyncCallback());
+        bakRpcClient.invokeAsync(sMethod, vParameters, null);
         return null;
       }
       
@@ -246,15 +233,6 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
         if(oException instanceof IOException) {
           throw new IOException(sMessage);
         }
-        else
-        if(oException instanceof XmlRpcException) {
-          if(((XmlRpcException) oException).code == -1) {
-            throw new RPCInvalidSessionException();
-          }
-          else {
-            throw new Exception(((XmlRpcException) oException).code + ": " + sMessage);
-          }
-        }
         else {
           throw new Exception(sMessage);
         }
@@ -262,22 +240,27 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
       
       return oResult;
     }
-    
     throw new IOException();
   }
   
   public
-  void handleResult(Object object, URL url, String method)
+  String toString()
   {
-    this.oResult     = object;
-    this.sMethodCall = method;
+    return firstRpcClient != null ? firstRpcClient.toString() : "";
   }
   
   public
-  void handleError(Exception exception, URL url, String method)
+  void handleResult(String sMethod, Collection colArgs, Object result)
   {
-    this.oException  = exception;
-    this.sMethodCall = method;
+    this.oResult     = result;
+    this.sMethodCall = sMethod;
+  }
+  
+  public
+  void handleError(String sMethod, Collection colArgs, Throwable error)
+  {
+    this.oException  = error;
+    this.sMethodCall = sMethod;
   }
   
   protected static
@@ -295,21 +278,5 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
     int iEnd = sCookie.indexOf(';');
     if(iEnd < 0) iEnd = sCookie.length();
     return sCookie.substring(iBegin + 11, iEnd);
-  }
-  
-  public
-  String toString()
-  {
-    return firstRpcClient != null ? firstRpcClient.toString() : "";
-  }
-  
-  class EmptyAsyncCallback implements AsyncCallback
-  {
-    public void handleResult(Object result, URL url, String method) {
-      System.out.println(ResourcesMgr.sLOG_PREFIX + " " + method + " -> " + result);
-    }
-    public void handleError(Exception exception, URL url, String method) {
-      System.err.println(ResourcesMgr.sLOG_PREFIX + " " + method + " -> ex: " + exception);
-    }
   }
 }

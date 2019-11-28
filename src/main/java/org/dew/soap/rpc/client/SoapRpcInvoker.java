@@ -13,8 +13,8 @@ import org.dew.rpc.client.HttpRpcClientTransport;
 import org.dew.rpc.client.RpcClientTransport;
 import org.dew.rpc.client.RpcInvoker;
 import org.dew.soap.rpc.SoapRpcContentHandler;
+import org.dew.xml.rpc.XmlRpcException;
 import org.dew.xml.rpc.XmlRpcSerializer;
-import org.dew.xmlrpc.XmlRpcException;
 
 @SuppressWarnings({"rawtypes","unchecked"})
 public

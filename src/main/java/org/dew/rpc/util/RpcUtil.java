@@ -33,8 +33,7 @@ import javax.naming.InitialContext;
 import org.dew.json.rpc.commons.RpcRemoteException;
 import org.dew.util.Arrays;
 import org.dew.util.WUtil;
-
-import org.dew.xmlrpc.XmlRpcException;
+import org.dew.xml.rpc.XmlRpcException;
 
 @SuppressWarnings({"rawtypes","unchecked"})
 public
