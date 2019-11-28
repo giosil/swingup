@@ -24,6 +24,7 @@ import org.dew.swingup.util.GUIUtil;
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes","serial","unchecked"})
 public
 class JRichTextNote extends JPanel
 {

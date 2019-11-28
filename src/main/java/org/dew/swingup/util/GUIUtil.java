@@ -17,6 +17,7 @@ import org.dew.swingup.impl.DefaultGUIManager;
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class GUIUtil
 {

@@ -18,6 +18,7 @@ import org.dew.swingup.util.*;
  *
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  */
+@SuppressWarnings({"rawtypes","serial","unchecked"})
 public abstract
 class AEntityEditor extends JPanel implements IEntityEditorConstants, ActionListener, ListSelectionListener, IWorkObject
 {

@@ -12,6 +12,7 @@ import javax.swing.*;
  *
  * @version 1.0
  */
+@SuppressWarnings({"serial"})
 public abstract
 class AJInternalFrame extends JInternalFrame
 implements IWorkObject

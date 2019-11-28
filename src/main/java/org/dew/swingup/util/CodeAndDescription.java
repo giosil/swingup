@@ -8,8 +8,8 @@ import java.util.*;
  * da un codice e una descrizione.
  *
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
- * @version $Revision: 7 $
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class CodeAndDescription implements Map.Entry
 {

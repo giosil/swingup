@@ -4,9 +4,8 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-import org.apache.xmlrpc.*;
-
 import org.dew.swingup.*;
+import org.dew.xmlrpc.*;
 
 /**
  * Implementazione di AGUIRPCClient che utilizza il protocollo XML-RPC.
@@ -14,6 +13,7 @@ import org.dew.swingup.*;
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes"})
 public
 class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
 {

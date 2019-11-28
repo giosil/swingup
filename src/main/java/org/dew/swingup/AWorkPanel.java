@@ -16,6 +16,7 @@ import org.dew.swingup.util.*;
  *
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes","serial","unchecked"})
 public abstract
 class AWorkPanel extends JPanel
 {

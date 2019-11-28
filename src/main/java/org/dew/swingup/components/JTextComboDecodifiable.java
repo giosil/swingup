@@ -18,6 +18,7 @@ import org.dew.swingup.util.*;
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes","serial","unchecked"})
 public
 class JTextComboDecodifiable extends ADecodifiableComponent
 {

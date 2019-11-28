@@ -10,6 +10,7 @@ import javax.swing.*;
  *
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class ThemeManager
 {

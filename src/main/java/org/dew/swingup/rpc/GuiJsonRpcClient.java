@@ -4,9 +4,8 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-import org.json.rpc.client.JsonRpcInvoker;
-import org.rpc.client.AsyncCallback;
-
+import org.dew.json.rpc.client.JsonRpcInvoker;
+import org.dew.rpc.client.AsyncCallback;
 import org.dew.swingup.*;
 
 /**
@@ -15,6 +14,7 @@ import org.dew.swingup.*;
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes"})
 public
 class GuiJsonRpcClient extends AGUIRPCClient implements AsyncCallback
 {

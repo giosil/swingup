@@ -9,6 +9,8 @@ package org.dew.swingup.rpc;
 public
 class RPCInvalidSessionException extends Exception
 {
+  private static final long serialVersionUID = -4436205608333931903L;
+  
   /**
    * Costruttore
    */

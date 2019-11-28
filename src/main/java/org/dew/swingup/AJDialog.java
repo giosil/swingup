@@ -15,6 +15,7 @@ import org.dew.swingup.util.*;
  *
  * @version 1.0
  */
+@SuppressWarnings({"serial"})
 public abstract
 class AJDialog extends JDialog implements IWorkObject
 {

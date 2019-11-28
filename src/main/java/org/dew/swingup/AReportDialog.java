@@ -12,6 +12,7 @@ import org.dew.swingup.util.*;
  *
  * @version 1.0
  */
+@SuppressWarnings({"serial"})
 public abstract
 class AReportDialog extends JDialog implements IWorkObject
 {

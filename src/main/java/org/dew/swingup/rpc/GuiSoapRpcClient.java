@@ -4,9 +4,8 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-import org.soap.rpc.client.SoapRpcInvoker;
-import org.rpc.client.AsyncCallback;
-
+import org.dew.rpc.client.AsyncCallback;
+import org.dew.soap.rpc.client.SoapRpcInvoker;
 import org.dew.swingup.*;
 
 /**
@@ -15,6 +14,7 @@ import org.dew.swingup.*;
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes"})
 public
 class GuiSoapRpcClient extends AGUIRPCClient implements AsyncCallback
 {

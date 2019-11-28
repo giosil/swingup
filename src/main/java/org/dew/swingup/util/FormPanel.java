@@ -22,6 +22,7 @@ import org.dew.swingup.layout.GridLayoutExt;
  * @author <a href="mailto:giorgio.giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes","serial","unchecked"})
 public
 class FormPanel extends JPanel implements ITagable
 {

@@ -181,6 +181,8 @@ public abstract class SwingWorkerGP {
 
 class GlassPane extends JComponent implements AWTEventListener {
   
+  private static final long serialVersionUID = 1883010215107325461L;
+  
   private Component component;
   private MouseListener mouseListener;
   private KeyListener keyListener;

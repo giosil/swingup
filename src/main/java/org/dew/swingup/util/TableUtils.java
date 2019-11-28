@@ -18,6 +18,7 @@ import org.dew.swingup.GUIMessage;
  *
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  */
+@SuppressWarnings({"serial"})
 public
 class TableUtils
 {

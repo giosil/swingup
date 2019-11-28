@@ -14,6 +14,7 @@ import org.dew.swingup.util.*;
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
+@SuppressWarnings({"serial"})
 public
 class ChangePasswordDialog extends AJDialog
 {

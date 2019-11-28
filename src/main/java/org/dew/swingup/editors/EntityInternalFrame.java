@@ -12,6 +12,7 @@ import org.dew.swingup.*;
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
+@SuppressWarnings({"serial"})
 public
 class EntityInternalFrame extends AJInternalFrame implements IEntityMgr
 {

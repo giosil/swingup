@@ -13,6 +13,7 @@ import org.dew.swingup.util.*;
  * @author <a href="mailto:giorgio.giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class DataNormalizer
 {

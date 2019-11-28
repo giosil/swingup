@@ -67,10 +67,16 @@ class DemoWorkPanel extends AWorkPanel
     return true;
   }
   
+  /**
+   * Restituisce la pagina di help corrispondente al titolo della GUI.
+   * 
+   * @param sTitle Titolo GUI 
+   * @return String pagina help
+   */
   public
   String getHelpDoc(String sTitle)
   {
-    if(sTitle != null && sTitle.equals("Editor")) {
+    if(sTitle != null && sTitle.equals("Frame")) {
       return "disclaimer.htm";
     }
     return null;

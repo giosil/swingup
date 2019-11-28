@@ -9,6 +9,8 @@ package org.dew.swingup.rpc;
 public
 class RPCCallTimedOutException extends Exception
 {
+  private static final long serialVersionUID = -7546679071124606968L;
+  
   /**
    * Costruttore
    */

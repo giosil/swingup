@@ -17,6 +17,7 @@ import org.dew.swingup.util.SmartCardManager;
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes"})
 public abstract
 class AGUIRPCClient implements IRPCClient
 {

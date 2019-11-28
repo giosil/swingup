@@ -12,6 +12,8 @@ package org.dew.swingup;
 public
 class WarningException extends Exception
 {
+  private static final long serialVersionUID = -4718326894634611099L;
+  
   /**
    * Construttore con l'impostazione del messaggio.
    * @param sMessage String

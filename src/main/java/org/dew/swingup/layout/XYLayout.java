@@ -11,9 +11,12 @@ import java.util.Hashtable;
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class XYLayout implements LayoutManager2, Serializable
 {
+  private static final long serialVersionUID = 8420977565604310478L;
+  
   static final XYConstraints defaultConstraints = new XYConstraints();
   
   int width;

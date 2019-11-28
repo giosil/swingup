@@ -9,20 +9,13 @@ import javax.swing.table.*;
  * secondo la quale si richiede il sort. La testata di questa colonna contiene il
  * nome della colonna e un imagine (triangoletto), che da' una percezione visiva
  * del tipo di ordinamento.
- *
- * @author V.Zylyftari
- * @version $Revision: 1 $
  */
+@SuppressWarnings({"serial"})
 public
 class TableHeadRenderer extends DefaultTableCellRenderer
 {
   public
-  Component getTableCellRendererComponent(JTable table      ,
-    Object value      ,
-    boolean isSelected,
-    boolean hasFocus  ,
-    int row           ,
-    int column)
+  Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus , int row,int column)
   {
     if(table != null) {
       JTableHeader header = table.getTableHeader();

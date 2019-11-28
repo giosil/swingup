@@ -8,6 +8,7 @@ import java.util.*;
  *
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class User
 {

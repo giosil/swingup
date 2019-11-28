@@ -9,6 +9,7 @@ import java.util.*;
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes"})
 public interface IRPCClient
 {
   public static final String sPROTOCOL_XMLRPC   = "xmlrpc";

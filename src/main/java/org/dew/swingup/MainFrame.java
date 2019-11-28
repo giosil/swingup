@@ -16,6 +16,8 @@ import org.dew.swingup.components.StatusBar;
 public
 class MainFrame extends JFrame implements ActionListener
 {
+  private static final long serialVersionUID = -7294335278171347163L;
+  
   public static final String sACTIONCOMMAND_APP_CONN     = "app.connessione";
   public static final String sACTIONCOMMAND_APP_DISCONN  = "app.disconnessione";
   public static final String sACTIONCOMMAND_APP_LOCK     = "app.lock";

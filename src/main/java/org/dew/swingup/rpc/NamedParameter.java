@@ -8,6 +8,7 @@ import java.util.Map;
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes"})
 public
 class NamedParameter implements Map.Entry
 {

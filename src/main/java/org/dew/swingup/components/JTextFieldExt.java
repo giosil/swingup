@@ -22,6 +22,7 @@ import org.dew.swingup.util.IValuable;
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.1
  */
+@SuppressWarnings({"serial"})
 public
 class JTextFieldExt extends JTextField implements IValuable
 {

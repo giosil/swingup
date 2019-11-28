@@ -548,7 +548,7 @@ class ResourcesMgr implements IResourceMgr
             sResource = sResource.substring(0, iLastSlash + 1) + sHelpDoc;
           }
           else {
-            sResource += sHelpDoc;
+            sResource = sHelpDoc;
           }
         }
         url = Thread.currentThread().getContextClassLoader().getResource("help/" + sResource);

@@ -13,6 +13,7 @@ import java.security.cert.*;
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class DefaultSessionManager implements ISessionManager
 {

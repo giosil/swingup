@@ -9,8 +9,9 @@ package org.dew.swingup.rpc;
 public
 class RPCServerNotAvailableException extends Exception
 {
-  public
-  RPCServerNotAvailableException()
+  private static final long serialVersionUID = -2115301776497635482L;
+  
+  public RPCServerNotAvailableException()
   {
   }
   

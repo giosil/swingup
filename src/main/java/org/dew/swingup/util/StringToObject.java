@@ -3,7 +3,7 @@ package org.dew.swingup.util;
 import java.util.*;
 
 /**
- * Classe di utilita' che converta una stringa in un oggetto complesso
+ * Classe di utilita' che converte una stringa in un oggetto complesso
  * ad esempio costituito da liste e mappe.
  * Le liste sono delimitate da [ e ]
  * Le mappe sono delimitate da { e }
@@ -12,8 +12,8 @@ import java.util.*;
  * Cio' che non e' una lista o una mappa viene convertito in stringa.
  *
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
- * @version $Revision: 2 $
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public class StringToObject
 {
   public static

@@ -14,6 +14,7 @@ import org.dew.swingup.impl.*;
  *
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes","serial","unchecked"})
 public abstract
 class ASimpleMenuManager implements IMenuManager
 {

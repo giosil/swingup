@@ -21,13 +21,13 @@ import org.dew.swingup.ResourcesMgr;
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public
 class DataFileAutoCompleter extends AutoCompleter
 {
   protected URL urlFile;
   protected boolean ignoreCase = false;
   protected boolean textContained = false;
-  //Salvatore
   protected int iOccorrenze = 4;
   protected boolean bActive = true;
   //Abilita Disabilita l'autocompletamento
@@ -161,19 +161,19 @@ class DataFileAutoCompleter extends AutoCompleter
   {
     return textContained;
   }
-  //Salvatore
+  
   public
   void setNumOccorrenze(int iOccorrenze)
   {
     this.iOccorrenze = iOccorrenze;
   }
-  //Salvatore
+  
   public
   void setAbilAutoComplete(boolean bAbil)
   {
     this.bAbilAutoComplete = bAbil;
   }
-  //Salvatore
+  
   public
   boolean getAbilAutoComplete()
   {
@@ -198,11 +198,6 @@ class DataFileAutoCompleter extends AutoCompleter
       String sLine = null;
       boolean boAtLeastOneFound = false;
       
-      // Ho preferito scrivere quattro cicli while in funzione delle opzioni
-      // per massimizzare il piu' possibile le prestazioni dell'algoritmo di
-      // ricerca.
-      
-      //Salvatore
       int i = 0;
       
       if(textContained) {
@@ -212,7 +207,6 @@ class DataFileAutoCompleter extends AutoCompleter
               continue;
             }
             if(sLine.toUpperCase().indexOf(sText.toUpperCase()) >= 0) {
-              //Salvatore
               if(++i > iOccorrenze)break;
               vMatch.add(sLine);
             }
@@ -225,7 +219,6 @@ class DataFileAutoCompleter extends AutoCompleter
               continue;
             }
             if(sLine.indexOf(sText) >= 0) {
-              //Salvatore
               if(++i > iOccorrenze)break;
               vMatch.add(sLine);
             }
@@ -239,7 +232,6 @@ class DataFileAutoCompleter extends AutoCompleter
               continue;
             }
             if(sText.equalsIgnoreCase(sLine.substring(0, iLength))) {
-              //Salvatore
               if(++i > iOccorrenze)break;
               vMatch.add(sLine);
               boAtLeastOneFound = true;
@@ -259,7 +251,6 @@ class DataFileAutoCompleter extends AutoCompleter
               continue;
             }
             if(sLine.startsWith(sText)) {
-              //Salvatore
               if(++i > iOccorrenze)break;
               vMatch.add(sLine);
               boAtLeastOneFound = true;
@@ -274,7 +265,6 @@ class DataFileAutoCompleter extends AutoCompleter
           }
         }
       }
-      //Salvatore
       if(i == 1 && bActive && bAbilAutoComplete) {
         sValue = vMatch.get(0).toString();
         SwingUtilities.invokeLater(new Runnable() {

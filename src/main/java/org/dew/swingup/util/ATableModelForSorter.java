@@ -10,6 +10,7 @@ import javax.swing.table.*;
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes","serial","unchecked"})
 public abstract
 class ATableModelForSorter extends AbstractTableModel
 {
