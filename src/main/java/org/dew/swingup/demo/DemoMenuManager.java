@@ -1,17 +1,23 @@
 package org.dew.swingup.demo;
 
+import java.util.Map;
+
 import org.dew.swingup.*;
 import org.dew.swingup.editors.AEntityEditor;
 import org.dew.swingup.editors.EntityInternalFrame;
 import org.dew.swingup.editors.IEntityMgr;
 import org.dew.swingup.fm.GUIFileManager;
 
+@SuppressWarnings("rawtypes")
 public
 class DemoMenuManager extends ASimpleMenuManager
 {
   public
   void enable(String sUserRole)
   {
+    User user = ResourcesMgr.getSessionManager().getUser();
+    Map mapEnabledFlags = user.getResourcesByFather("menu");
+    setEnabled(mapEnabledFlags);
   }
   
   protected
@@ -37,7 +43,7 @@ class DemoMenuManager extends ASimpleMenuManager
     }
     else
     if(sIdItem.equals("test.calendar")) {
-      workPanel.show(new DemoCalendar(), "Calendar", "ClockLarge.gif");
+      workPanel.show(new DemoCalendar(), "Calendar", "Calendar.gif");
     }
   }
   
@@ -79,10 +85,10 @@ class DemoMenuManager extends ASimpleMenuManager
     
     addMenuItem("test",       // Id Menu
       "calendar",             // Id Item
-      "Calendar",             // Testo
+      "&Calendar",            // Testo
       "Calendar Manager",     // Descrizione
-      "ClockLarge.gif",       // Small Icon
-      "ClockLarge.gif",       // Large Icon
+      "Calendar.gif",         // Small Icon
+      "Calendar.gif",         // Large Icon
       true);                  // Enabled
   }
 }

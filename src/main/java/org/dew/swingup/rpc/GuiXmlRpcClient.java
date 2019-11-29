@@ -12,9 +12,6 @@ import org.dew.swingup.*;
 
 /**
  * Implementazione di AGUIRPCClient che utilizza il protocollo XML-RPC.
- *
- * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
- * @version 1.0
  */
 @SuppressWarnings({"rawtypes"})
 public
@@ -75,7 +72,7 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
   }
   
   public
-  void setHeaders(Map mapHeaders)
+  void setHeaders(Map<String,Object> mapHeaders)
   {
     super.setHeaders(mapHeaders);
     if(firstRpcClient != null) firstRpcClient.getTransport().setHeaders(mapHeaders);
@@ -167,7 +164,7 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
   }
   
   protected
-  Object invoke(String sMethod, Vector vParameters)
+  Object invoke(String sMethod, List<?> listParameters)
     throws Exception
   {
     int iElapsed = 0;
@@ -176,7 +173,7 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
     oException   = null;
     
     if(iTimeOut > 0) {
-      firstRpcClient.invokeAsync(sMethod, vParameters, this);
+      firstRpcClient.invokeAsync(sMethod, listParameters, this);
       while(!sMethod.equals(sMethodCall)) {
         Thread.sleep(100);
         iElapsed += 100;
@@ -186,7 +183,7 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
       }
     }
     else {
-      firstRpcClient.invokeAsync(sMethod, vParameters, null);
+      firstRpcClient.invokeAsync(sMethod, listParameters, null);
       return null;
     }
     
@@ -204,7 +201,7 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
   }
   
   protected
-  Object invoke_bak(String sMethod, Vector vParameters)
+  Object invoke_bak(String sMethod, List<?> listParameters)
     throws Exception
   {
     if(bakRpcClient != null) {
@@ -214,7 +211,7 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
       oException   = null;
       
       if(iTimeOut > 0) {
-        bakRpcClient.invokeAsync(sMethod, vParameters, this);
+        bakRpcClient.invokeAsync(sMethod, listParameters, this);
         while(!sMethod.equals(sMethodCall)) {
           Thread.sleep(100);
           iElapsed += 100;
@@ -224,7 +221,7 @@ class GuiXmlRpcClient extends AGUIRPCClient implements AsyncCallback
         }
       }
       else {
-        bakRpcClient.invokeAsync(sMethod, vParameters, null);
+        bakRpcClient.invokeAsync(sMethod, listParameters, null);
         return null;
       }
       

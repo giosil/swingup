@@ -30,7 +30,7 @@ public class DemoCalendar extends JPanel implements IWorkObject{
   
   protected JBigCalendar jbigCalendar;
   
-  protected static final Color cCOLOR_FROM = new Color(210, 230, 255);
+  protected static final Color cCOLOR_FROM = new Color(220, 240, 255);
   protected static final Color cCOLOR_TO   = new Color(134, 175, 225);
   
   protected static final Color cCOLOR_0    = new Color(200, 255, 200);

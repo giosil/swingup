@@ -8,7 +8,6 @@ import org.dew.rpc.util.RpcUtil;
 /**
  * Implementazione di AGUIRPCClient che consente di accedere a classi locali.
  */
-@SuppressWarnings("rawtypes")
 public
 class GuiLocalRPCClient extends AGUIRPCClient
 {
@@ -68,11 +67,11 @@ class GuiLocalRPCClient extends AGUIRPCClient
   }
 
   protected
-  Object invoke(String sMethod, Vector vParameters)
+  Object invoke(String sMethod, List<?> listParameters)
     throws Exception
   {
     try {
-      return RpcUtil.executeMethod(mapHandlers, null, sMethod, vParameters);
+      return RpcUtil.executeMethod(mapHandlers, null, sMethod, listParameters);
     } 
     catch (Throwable ex) {
       System.err.println("[GuiLocalRPCClient] " + sMethod + ": "+ ex);
@@ -81,7 +80,7 @@ class GuiLocalRPCClient extends AGUIRPCClient
   }
 
   protected
-  Object invoke_bak(String sMethod, Vector vParameters)
+  Object invoke_bak(String sMethod, List<?> listParameters)
     throws Exception
   {
     throw new IOException();

@@ -1,6 +1,7 @@
 package org.dew.swingup.rpc;
 
 import java.util.*;
+import java.util.List;
 import java.awt.*;
 import java.io.IOException;
 
@@ -84,7 +85,7 @@ class AGUIRPCClient implements IRPCClient
    * @param mapHeaders mappa Headers
    */
   public
-  void setHeaders(Map mapHeaders)
+  void setHeaders(Map<String,Object> mapHeaders)
   {
     this.mapHeaders = mapHeaders;
   }
@@ -104,24 +105,24 @@ class AGUIRPCClient implements IRPCClient
    * Invoca un metodo remoto al servizio RPC predefinito.
    *
    * @param sMethod Metodo
-   * @param vParameters Parametri
+   * @param listParameters Parametri
    * @return Object
    * @throws Exception
    */
   protected abstract
-  Object invoke(String sMethod, Vector vParameters)
+  Object invoke(String sMethod, List<?> listParameters)
     throws Exception;
   
   /**
    * Invoca un metodo remoto al servizio RPC di backup.
    *
    * @param sMethod Metodo
-   * @param vParameters Parametri
+   * @param listParameters Parametri
    * @return Object
    * @throws Exception
    */
   protected abstract
-  Object invoke_bak(String sMethod, Vector vParameters)
+  Object invoke_bak(String sMethod, List<?> listParameters)
     throws Exception;
   
   public
@@ -148,7 +149,7 @@ class AGUIRPCClient implements IRPCClient
   }
   
   public
-  Object execute(String sMethod, Vector vParameters)
+  Object execute(String sMethod, List<?> listParameters)
     throws Exception
   {
     if(boSmartCard) {
@@ -167,12 +168,12 @@ class AGUIRPCClient implements IRPCClient
     
     long lBegin = System.currentTimeMillis();
     try {
-      if(ResourcesMgr.bDebug) oLogger.debug("[RPC] " + sMethod + "(" + vParameters + ")");
+      if(ResourcesMgr.bDebug) oLogger.debug("[RPC] " + sMethod + "(" + listParameters + ")");
       if(!boUseBakup) {
-        oResult = invoke(sMethod, vParameters);
+        oResult = invoke(sMethod, listParameters);
       }
       else {
-        oResult = invoke_bak(sMethod, vParameters);
+        oResult = invoke_bak(sMethod, listParameters);
       }
       long lElapsed = System.currentTimeMillis() - lBegin;
       oLogger.debug("[RPC] " + sMethod + " -> " + lElapsed + " ms");
@@ -188,10 +189,10 @@ class AGUIRPCClient implements IRPCClient
       boUseBakup = !boUseBakup;
       try{
         if(!boUseBakup) {
-          oResult = invoke(sMethod, vParameters);
+          oResult = invoke(sMethod, listParameters);
         }
         else {
-          oResult = invoke_bak(sMethod, vParameters);
+          oResult = invoke_bak(sMethod, listParameters);
         }
         long lElapsed = System.currentTimeMillis() - lBegin;
         oLogger.debug("[RPC] " + sMethod + " -> " + lElapsed + " ms");
@@ -224,7 +225,7 @@ class AGUIRPCClient implements IRPCClient
   }
   
   public
-  Object execute(String sMethod, Vector vParameters, boolean boShowWaitPlease)
+  Object execute(String sMethod, List<?> listParameters, boolean boShowWaitPlease)
     throws Exception
   {
     if(boSmartCard) {
@@ -251,12 +252,12 @@ class AGUIRPCClient implements IRPCClient
     Object oResult = null;
     long lBegin = System.currentTimeMillis();
     try {
-      if(ResourcesMgr.bDebug) oLogger.debug("[RPC] " + sMethod + "(" + vParameters + ")");
+      if(ResourcesMgr.bDebug) oLogger.debug("[RPC] " + sMethod + "(" + listParameters + ")");
       if(!boUseBakup) {
-        oResult = invoke(sMethod, vParameters);
+        oResult = invoke(sMethod, listParameters);
       }
       else {
-        oResult = invoke_bak(sMethod, vParameters);
+        oResult = invoke_bak(sMethod, listParameters);
       }
       long lElapsed = System.currentTimeMillis() - lBegin;
       oLogger.debug("[RPC] " + sMethod + " -> " + lElapsed + " ms");
@@ -272,10 +273,10 @@ class AGUIRPCClient implements IRPCClient
       boUseBakup = !boUseBakup;
       try{
         if(!boUseBakup) {
-          oResult = invoke(sMethod, vParameters);
+          oResult = invoke(sMethod, listParameters);
         }
         else {
-          oResult = invoke_bak(sMethod, vParameters);
+          oResult = invoke_bak(sMethod, listParameters);
         }
         long lElapsed = System.currentTimeMillis() - lBegin;
         oLogger.debug("[RPC] " + sMethod + " -> " + lElapsed + " ms");

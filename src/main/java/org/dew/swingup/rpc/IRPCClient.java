@@ -5,11 +5,7 @@ import java.util.*;
 /**
  * Interfaccia che permette di implementare un oggetto specializzato nella
  * chiamata di procedure remote.
- *
- * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
- * @version 1.0
  */
-@SuppressWarnings({"rawtypes"})
 public interface IRPCClient
 {
   public static final String sPROTOCOL_XMLRPC   = "xmlrpc";
@@ -61,7 +57,7 @@ public interface IRPCClient
    * @param mapHeaders mappa Headers
    */
   public
-  void setHeaders(Map mapHeaders);
+  void setHeaders(Map<String,Object> mapHeaders);
   
   /**
    * Apre una nuova sessione.
@@ -144,24 +140,24 @@ public interface IRPCClient
    * Esegue un metodo remoto.
    *
    * @param sMethod Metodo
-   * @param vParameters Parametri
+   * @param listParameters Parametri
    * @return Risultato
    * @throws Exception
    */
   public
-  Object execute(String sMethod, Vector vParameters)
+  Object execute(String sMethod, List<?> listParameters)
     throws Exception;
   
   /**
    * Esegue un metodo remoto.
    *
    * @param sMethod Metodo
-   * @param vParameters Parametri
+   * @param listParameters Parametri
    * @param boShowWaitPlease Flag per mostrare o meno la gui di attesa
    * @return Risultato
    * @throws Exception
    */
   public
-  Object execute(String sMethod, Vector vParameters, boolean boShowWaitPlease)
+  Object execute(String sMethod, List<?> listParameters, boolean boShowWaitPlease)
     throws Exception;
 }

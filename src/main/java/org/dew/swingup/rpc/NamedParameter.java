@@ -4,9 +4,6 @@ import java.util.Map;
 
 /**
  * Classe di utilita' per l'utilizzo di parametri nominali.
- *
- * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
- * @version 1.0
  */
 @SuppressWarnings({"rawtypes"})
 public
