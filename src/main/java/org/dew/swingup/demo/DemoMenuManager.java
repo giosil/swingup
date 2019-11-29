@@ -1,6 +1,9 @@
 package org.dew.swingup.demo;
 
 import org.dew.swingup.*;
+import org.dew.swingup.editors.AEntityEditor;
+import org.dew.swingup.editors.EntityInternalFrame;
+import org.dew.swingup.editors.IEntityMgr;
 import org.dew.swingup.fm.GUIFileManager;
 
 public
@@ -14,25 +17,27 @@ class DemoMenuManager extends ASimpleMenuManager
   protected
   void onClick(String sIdItem)
   {
-    AWorkPanel oWorkPanel = ResourcesMgr.getWorkPanel();
+    AWorkPanel workPanel = ResourcesMgr.getWorkPanel();
     
     if(sIdItem.equals("test.single")) {
-      if(!oWorkPanel.selectTab("Single")) {
-        DemoInternalFrame oTestFrame = new DemoInternalFrame();
-        oWorkPanel.show(oTestFrame, "Frame a istanza singola");
+      if(!workPanel.selectTab("Single")) {
+        AEntityEditor entityEditor = new DemoEntityEditor();
+        IEntityMgr entityMgr = new EntityInternalFrame();
+        entityMgr.init(entityEditor, "Single Frame", "BookLarge.gif");
+        workPanel.show(entityMgr);
       }
     }
     else
     if(sIdItem.equals("test.frame")) {
-      oWorkPanel.show(new DemoWorkObject("DemoWorkObject"), "Frame", "PaletteLarge.gif");
+      workPanel.show(new DemoWorkObject("DemoWorkObject"), "Frame", "PaletteLarge.gif");
     }
     else
     if(sIdItem.equals("test.filemgr")) {
-      oWorkPanel.show(new GUIFileManager(), "File Manager", "OpenProjectLarge.gif");
+      workPanel.show(new GUIFileManager(), "File Manager", "OpenProjectLarge.gif");
     }
     else
     if(sIdItem.equals("test.calendar")) {
-      oWorkPanel.show(new DemoCalendar(), "Calendar", "ClockLarge.gif");
+      workPanel.show(new DemoCalendar(), "Calendar", "ClockLarge.gif");
     }
   }
   
