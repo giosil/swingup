@@ -7,7 +7,7 @@ A simple framework to build swing based application.
 - `git clone https://github.com/giosil/swingup.git`
 - `mvn clean install`
 
-## Run
+## Run Demo
 
 ### On Windows
 
