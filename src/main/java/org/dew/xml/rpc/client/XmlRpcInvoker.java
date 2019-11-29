@@ -98,7 +98,7 @@ class XmlRpcInvoker implements RpcInvoker
   Object invoke(RpcClientTransport transport, String sMethod, Collection colArgs)
     throws Throwable
   {
-     StringBuffer sbParams = new StringBuffer(colArgs != null ? colArgs.size() * 40 : 0 + 17);
+    StringBuffer sbParams = new StringBuffer(colArgs != null ? colArgs.size() * 40 : 0 + 17);
     sbParams.append("<params>");
     if(colArgs != null) {
       Iterator iterator = colArgs.iterator();
