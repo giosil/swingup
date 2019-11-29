@@ -15,13 +15,12 @@ public interface IRPCClient
   public static final String sPROTOCOL_XMLRPC   = "xmlrpc";
   public static final String sPROTOCOL_SOAP     = "soap";
   public static final String sPROTOCOL_HTTP     = "http";
-  public static final String sPROTOCOL_JOLT     = "jolt";
-  public static final String sPROTOCOL_COPSI    = "copsi";
   public static final String sPROTOCOL_RMI      = "rmi";
   public static final String sPROTOCOL_RMI_IIOP = "rmi-iiop";
   public static final String sPROTOCOL_CORBA    = "corba";
   public static final String sPROTOCOL_DCOM     = "dcom";
   public static final String sPROTOCOL_JSONRPC  = "jsonrpc";
+  public static final String sPROTOCOL_JAVA     = "java";
   
   /**
    * Inizializza il client RPC.

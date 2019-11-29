@@ -16,7 +16,7 @@ class DemoInternalFrame extends AJInternalFrame
   public
   DemoInternalFrame()
   {
-    super("Single", "RedFlagLarge.gif");
+    super("Single", "BookLarge.gif");
   }
   
   protected
@@ -25,7 +25,7 @@ class DemoInternalFrame extends AJInternalFrame
   {
     System.out.println("DemoInternalFrame.buildGUI");
     
-    FormPanel formPanel = new FormPanel();
+    FormPanel formPanel = new FormPanel("FormPanel");
     formPanel.addRow();
     formPanel.addTextField("s", "Text");
     formPanel.addDateField("d", "Date");

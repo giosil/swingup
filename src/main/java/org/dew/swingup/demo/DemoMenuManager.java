@@ -1,6 +1,7 @@
 package org.dew.swingup.demo;
 
 import org.dew.swingup.*;
+import org.dew.swingup.fm.GUIFileManager;
 
 public
 class DemoMenuManager extends ASimpleMenuManager
@@ -23,7 +24,11 @@ class DemoMenuManager extends ASimpleMenuManager
     }
     else
     if(sIdItem.equals("test.frame")) {
-      oWorkPanel.show(new DemoWorkObject("Questo \350 un container!"), "Frame", "BlueFlagLarge.gif");
+      oWorkPanel.show(new DemoWorkObject("Questo \350 un container!"), "Frame", "PaletteLarge.gif");
+    }
+    else
+    if(sIdItem.equals("test.filemgr")) {
+      oWorkPanel.show(new GUIFileManager(), "File Manager", "OpenProjectLarge.gif");
     }
   }
   
@@ -39,20 +44,28 @@ class DemoMenuManager extends ASimpleMenuManager
     // Gap tra le voci del menu laterale.
     iGapItems = 0;
     
-    addMenuItem("test",        // Id Menu
-      "single",              // Id Item
-      "&Single",             // Testo
-      "Istanza singola",     // Descrizione
-      "RedFlagLarge.gif",    // Small Icon
-      "RedFlagLarge.gif",    // Large Icon
-      true);                 // Enabled
+    addMenuItem("test",       // Id Menu
+      "single",               // Id Item
+      "&Single",              // Testo
+      "Istanza singola",      // Descrizione
+      "BookLarge.gif",        // Small Icon
+      "BookLarge.gif",        // Large Icon
+      true);                  // Enabled
     
-    addMenuItem("test",        // Id Menu
-      "frame",               // Id Item
-      "&Frame",              // Testo
-      "Mostra un container", // Descrizione
-      "BlueFlagLarge.gif",   // Small Icon
-      "BlueFlagLarge.gif",   // Large Icon
-      true);                 // Enabled
+    addMenuItem("test",       // Id Menu
+      "frame",                // Id Item
+      "&Frame",               // Testo
+      "Mostra un container",  // Descrizione
+      "PaletteLarge.gif",     // Small Icon
+      "PaletteLarge.gif",     // Large Icon
+      true);                  // Enabled
+    
+    addMenuItem("test",       // Id Menu
+      "filemgr",              // Id Item
+      "File &Mgr",            // Testo
+      "File Manager",         // Descrizione
+      "OpenProjectLarge.gif", // Small Icon
+      "OpenProjectLarge.gif", // Large Icon
+      true);                  // Enabled
   }
 }
