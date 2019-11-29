@@ -17,7 +17,7 @@ public class TestSwingup extends TestCase {
   }
   
   public void testApp() {
-    System.out.println(ResourcesMgr.sPREFIX + " ver. " + ResourcesMgr.sAPP_VERSION);
+    System.out.println(ResourcesMgr.sPREFIX + " build " + ResourcesMgr.sBUILD);
   }
   
 }
