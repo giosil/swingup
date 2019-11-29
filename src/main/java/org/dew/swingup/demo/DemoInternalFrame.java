@@ -44,7 +44,7 @@ class DemoInternalFrame extends AJInternalFrame
   {
     System.out.println("DemoInternalFrame.onClosing");
     
-    return GUIMessage.getConfirmation("Vuoi chiudere la finestra?");
+    return GUIMessage.getConfirmation("Si vuole chiudere?");
   }
   
   public

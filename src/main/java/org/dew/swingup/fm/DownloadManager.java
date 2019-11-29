@@ -64,7 +64,7 @@ class DownloadManager implements Runnable
   public
   void setDefaultLocalFolder()
   {
-    sLocalFolder = System.getProperty("user.home") + File.separator + ".cfadmin";
+    sLocalFolder = System.getProperty("user.home") + File.separator + ".swingup";
     File fLocalFolder = new File(sLocalFolder);
     if(!fLocalFolder.exists()) {
       fLocalFolder.mkdirs();

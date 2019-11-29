@@ -17,7 +17,7 @@ class DemoWorkObject extends JLabel implements IWorkObject
   public boolean onClosing()
   {
     System.out.println("DemoWorkObject.onClosing");
-    return GUIMessage.getConfirmation("Vuoi chiudere la finestra?");
+    return GUIMessage.getConfirmation("Si vuole chiudere?");
   }
   
   public void onActivated()

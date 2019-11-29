@@ -24,11 +24,15 @@ class DemoMenuManager extends ASimpleMenuManager
     }
     else
     if(sIdItem.equals("test.frame")) {
-      oWorkPanel.show(new DemoWorkObject("Questo \350 un container!"), "Frame", "PaletteLarge.gif");
+      oWorkPanel.show(new DemoWorkObject("DemoWorkObject"), "Frame", "PaletteLarge.gif");
     }
     else
     if(sIdItem.equals("test.filemgr")) {
       oWorkPanel.show(new GUIFileManager(), "File Manager", "OpenProjectLarge.gif");
+    }
+    else
+    if(sIdItem.equals("test.calendar")) {
+      oWorkPanel.show(new DemoCalendar(), "Calendar", "ClockLarge.gif");
     }
   }
   
@@ -66,6 +70,14 @@ class DemoMenuManager extends ASimpleMenuManager
       "File Manager",         // Descrizione
       "OpenProjectLarge.gif", // Small Icon
       "OpenProjectLarge.gif", // Large Icon
+      true);                  // Enabled
+    
+    addMenuItem("test",       // Id Menu
+      "calendar",             // Id Item
+      "Calendar",             // Testo
+      "Calendar Manager",     // Descrizione
+      "ClockLarge.gif",       // Small Icon
+      "ClockLarge.gif",       // Large Icon
       true);                  // Enabled
   }
 }
