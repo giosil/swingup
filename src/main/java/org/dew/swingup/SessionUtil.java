@@ -252,16 +252,6 @@ class SessionUtil
   }
   
   public static
-  String getSubjectDistinguishedName(byte[] abX509Certificate)
-    throws Exception
-  {
-    X509Certificate x509certificate = getX509Certificate(abX509Certificate);
-    if(x509certificate == null) return null;
-    Principal subjectDN = x509certificate.getSubjectDN();
-    return subjectDN.getName();
-  }
-  
-  public static
   String getSubjectDistinguishedName(X509Certificate x509certificate)
     throws Exception
   {
@@ -269,31 +259,4 @@ class SessionUtil
     Principal subjectDN = x509certificate.getSubjectDN();
     return subjectDN.getName();
   }
-  
-  public static
-  X509Certificate getX509Certificate(byte[] abX509Certificate)
-  {
-    return org.dew.swingup.util.SmartCardManager.getX509Certificate(abX509Certificate);
-  }
-  
-  public static
-  X509Certificate getX509CertificateFromSignature(byte[] abSignature)
-  {
-    return org.dew.swingup.util.SmartCardManager.getX509CertificateFromSignature(abSignature);
-  }
-  
-  //  public static
-  //  X509Certificate getX509CertificateFromPKCS7(byte[] abSignature)
-  //  {
-  //    try {
-  //      sun.security.pkcs.PKCS7 pkcs7 = new sun.security.pkcs.PKCS7(abSignature);
-  //      X509Certificate[] certificates = pkcs7.getCertificates();
-  //      if(certificates == null || certificates.length == 0) return null;
-  //      return certificates[0];
-  //    }
-  //    catch (Exception ex) {
-  //      ex.printStackTrace();
-  //    }
-  //    return null;
-  //  }
 }

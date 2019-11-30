@@ -2,10 +2,7 @@ package org.dew.swingup.dialog;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.security.Principal;
-import java.security.cert.X509Certificate;
-import java.text.DateFormat;
-import java.util.Date;
+
 import java.util.List;
 
 import javax.swing.*;
@@ -161,112 +158,8 @@ class LoginDialog extends AJDialog
   protected
   boolean doLoginBySmartCard()
   {
-    String sIdClient = (String) cmbClient.getSelectedItem();
-    if(oPanelIdClient.isVisible()) {
-      if(sIdClient == null || sIdClient.length() == 0) {
-        showErrorMessage("Selezionare il client");
-        return false;
-      }
-    }
-    
-    SmartCardManager smartCardManager;
-    try {
-      smartCardManager = new SmartCardManager();
-    }
-    catch(Exception ex) {
-      ex.printStackTrace();
-      showErrorMessage("Lettore Smart Card non accessibile");
-      return false;
-    }
-    
-    String sUserName = txtUserName.getText();
-    if(sUserName != null && sUserName.equalsIgnoreCase("check")) {
-      try {
-        X509Certificate x509Certificate = smartCardManager.getX509CertificateObject(true, 0);
-        if(x509Certificate == null) {
-          GUIMessage.showWarning(this, "Verifica firma digitale con Smart Card fallita.");
-        }
-        else {
-          boolean boExpired = false;
-          Date dNotBefore = x509Certificate.getNotBefore();
-          Date dNotAfter  = x509Certificate.getNotAfter();
-          if(dNotAfter != null) boExpired = dNotAfter.before(new Date());
-          String sExpired = boExpired ? " (Scaduto)" : "";
-          DateFormat dateFormat = ResourcesMgr.getDefaultDateFormat();
-          String sNotBefore = dNotBefore != null ? dateFormat.format(dNotBefore) : "";
-          String sNotAfter  = dNotAfter  != null ? dateFormat.format(dNotAfter)  : "";
-          String sMessage = "Firma con Smart Card verificata con successo. Certificato:\n\n";
-          Principal subjectDN = x509Certificate.getSubjectDN();
-          if(subjectDN != null) {
-            sMessage += subjectDN.getName() + "\n\n";
-          }
-          Object serialNumber = x509Certificate.getSerialNumber();
-          sMessage += "SerialNumber: " + serialNumber + "\n\n";
-          Principal issuerDN = x509Certificate.getIssuerDN();
-          if(issuerDN != null) {
-            sMessage += "Emesso da: " + issuerDN.getName() + "\n\n";
-          }
-          sMessage += "Validit\340: " + sNotBefore + " - " + sNotAfter + sExpired + "\n";
-          if(boExpired) {
-            GUIMessage.showWarning(this, sMessage);
-          }
-          else {
-            GUIMessage.showInformation(this, sMessage);
-          }
-        }
-      }
-      catch(Exception ex) {
-        GUIMessage.showException(this, ex);
-      }
-      return false;
-    }
-    
-    byte[] abSignature = null;
-    try {
-      int iSlot = ResourcesMgr.getIntProperty(ResourcesMgr.sGUILOGIN_SLOT);
-      
-      if(sIdService == null || sIdService.length() == 0) sIdService = "?";
-      abSignature = smartCardManager.signWithPKCS11(sIdService.getBytes(), iSlot);
-      if(abSignature == null || abSignature.length < 2) return false;
-    }
-    catch(Exception ex) {
-      ex.printStackTrace();
-      showErrorMessage(ex.getMessage());
-      return false;
-    }
-    
-    ResourcesMgr.config.setProperty(ResourcesMgr.sAPP_RPC_SMARTCARD, "1");
-    
-    ISessionManager oSessionMgr = ResourcesMgr.getSessionManager();
-    try {
-      setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      oSessionMgr.login(sIdService, abSignature, sIdClient);
-    }
-    catch(Exception ex) {
-      ex.printStackTrace();
-      String sExMessage = ex.getMessage();
-      if(sExMessage != null && sExMessage.length() > 1 && sExMessage.startsWith("!")) {
-        showErrorMessage(sExMessage.substring(1));
-      }
-      else {
-        showErrorMessage("Servizio non disponibile");
-      }
-      return false;
-    }
-    finally {
-      setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    }
-    
-    if(!oSessionMgr.isActive()) {
-      showErrorMessage("Utente non riconosciuto");
-      return false;
-    }
-    
-    ResourcesMgr.config.setProperty(ResourcesMgr.sGUILOGIN_IDCLIENT, sIdClient);
-    ResourcesMgr.dat.setProperty(ResourcesMgr.sGUILOGIN_IDCLIENT, sIdClient);
-    ResourcesMgr.saveDat();
-    
-    return true;
+    GUIMessage.showWarning(this, "Funzione non disponibile");
+    return false;
   }
   
   protected

@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.text.*;
 
 import org.dew.swingup.*;
-import org.dew.swingup.util.*;
 
 /**
  * Dialogo che mostra un orologio a sfere.
@@ -90,31 +89,22 @@ class ClockDialog extends JDialog implements Runnable
   void doClose()
   {
     User user = ResourcesMgr.getSessionManager().getUser();
+    
     if(user != null) {
       String sPassword = user.getPassword();
-      if(sPassword == null) {
-        String sCertSubjectDN = user.getCertSubjectDN();
-        if(sCertSubjectDN != null) {
-          if(!checkSubjectDN(sCertSubjectDN)) {
-            return;
-          }
+      String sInput = GUIMessage.getPasswordInput("Digitare la password di " + user.getUserName());
+      if(sInput == null) return;
+      if(sPassword.length() == 0) {
+        int passwordHashCode = user.getPasswordHashCode();
+        if(passwordHashCode != 0 && passwordHashCode != sInput.hashCode()) {
+          GUIMessage.showWarning("La password immessa non \350 esatta.");
+          return;
         }
       }
       else {
-        String sInput = GUIMessage.getPasswordInput("Digitare la password di " + user.getUserName());
-        if(sInput == null) return;
-        if(sPassword.length() == 0) {
-          int passwordHashCode = user.getPasswordHashCode();
-          if(passwordHashCode != 0 && passwordHashCode != sInput.hashCode()) {
-            GUIMessage.showWarning("La password immessa non \350 esatta.");
-            return;
-          }
-        }
-        else {
-          if(!sInput.equals("\n") && sPassword != null && !sInput.equals(sPassword)) {
-            GUIMessage.showWarning("La password immessa non \350 corretta.");
-            return;
-          }
+        if(!sInput.equals("\n") && sPassword != null && !sInput.equals(sPassword)) {
+          GUIMessage.showWarning("La password immessa non \350 corretta.");
+          return;
         }
       }
     }
@@ -271,54 +261,5 @@ class ClockDialog extends JDialog implements Runnable
     lastxs = xs; lastys = ys;
     lastxm = xm; lastym = ym;
     lastxh = xh; lastyh = yh;
-  }
-  
-  protected
-  boolean checkSubjectDN(String sCertSubjectDN)
-  {
-    byte[] abCertificate = null;
-    
-    SmartCardManager smartCardManager;
-    try {
-      smartCardManager = new SmartCardManager();
-    }
-    catch(Exception ex) {
-      ex.printStackTrace();
-      GUIMessage.showError(ex.getMessage());
-      return false;
-    }
-    
-    try {
-      abCertificate = smartCardManager.getX509Certificate();
-    }
-    catch(Exception ex) {
-      ex.printStackTrace();
-      GUIMessage.showError(ex.getMessage());
-      return false;
-    }
-    
-    if(abCertificate == null) return false;
-    
-    String sCertSubjectDNReaded = null;
-    try {
-      sCertSubjectDNReaded = SessionUtil.getSubjectDistinguishedName(abCertificate);
-    }
-    catch(Exception ex) {
-      ex.printStackTrace();
-      GUIMessage.showError("Certificato non valido");
-      return false;
-    }
-    
-    if(sCertSubjectDNReaded == null) {
-      GUIMessage.showError("Certificato non valido");
-      return false;
-    }
-    
-    if(!sCertSubjectDNReaded.equals(sCertSubjectDN)) {
-      GUIMessage.showError("Certificato non corrispondente");
-      return false;
-    }
-    
-    return true;
   }
 }

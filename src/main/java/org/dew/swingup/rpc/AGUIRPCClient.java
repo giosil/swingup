@@ -10,7 +10,6 @@ import javax.swing.*;
 import org.dew.swingup.*;
 import org.dew.swingup.log.*;
 import org.dew.swingup.components.*;
-import org.dew.swingup.util.SmartCardManager;
 
 /**
  * Classe astratta che permette di implementare un oggetto specializzato nella chiamata di procedure remote.
@@ -27,22 +26,11 @@ class AGUIRPCClient implements IRPCClient
   protected int iTimeOut    = ResourcesMgr.getIntProperty(ResourcesMgr.sAPP_RPC_TIMEOUT, 30000);;
   protected String sSessionIdSetted = null;
   
-  protected boolean boSmartCard = false;
-  protected SmartCardManager smartCardManager;
   protected Map mapHeaders;
   
   public
   AGUIRPCClient()
   {
-    boSmartCard = ResourcesMgr.getBooleanProperty(ResourcesMgr.sAPP_RPC_SMARTCARD, false);
-    if(boSmartCard) {
-      try {
-        smartCardManager = new SmartCardManager();
-      }
-      catch(Exception ex) {
-        ex.printStackTrace();
-      }
-    }
   }
   
   /**
@@ -152,12 +140,6 @@ class AGUIRPCClient implements IRPCClient
   Object execute(String sMethod, List<?> listParameters)
     throws Exception
   {
-    if(boSmartCard) {
-      if(!smartCardManager.check()) {
-        throw new WarningException("Smart card non disponibile. Comunicazione interrotta.");
-      }
-    }
-    
     Object oResult = null;
     
     StatusBar oStatusBar = ResourcesMgr.getStatusBar();
@@ -228,12 +210,6 @@ class AGUIRPCClient implements IRPCClient
   Object execute(String sMethod, List<?> listParameters, boolean boShowWaitPlease)
     throws Exception
   {
-    if(boSmartCard) {
-      if(!smartCardManager.check()) {
-        throw new WarningException("Smart card non disponibile. Comunicazione interrotta.");
-      }
-    }
-    
     if(boShowWaitPlease) {
       ResourcesMgr.setVisibleWaitPleaseWindow(true);
     }

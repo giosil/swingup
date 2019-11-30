@@ -90,11 +90,25 @@ class DefaultSessionManager implements ISessionManager
   void login(String sIdService, byte[] abSignature, String sIdClient)
     throws Exception
   {
-    X509Certificate x509Certificate = SessionUtil.getX509CertificateFromSignature(abSignature);
+    X509Certificate x509Certificate = null;
+    
     String sCommonName = SessionUtil.getCommonName(x509Certificate);
     String sTaxCode    = SessionUtil.getTaxCode(x509Certificate);
     String sSubjectDN  = SessionUtil.getSubjectDistinguishedName(x509Certificate);
     String sIssuerDN   = SessionUtil.getIssuerDistinguishedName(x509Certificate);
+    
+    if(sCommonName == null || sCommonName.length() == 0) {
+      sCommonName = "XXXKLJ70B48Z222R/000000000000";
+    }
+    if(sTaxCode == null || sTaxCode.length() == 0) {
+      sTaxCode = "XXXKLJ70B48Z222R";
+    }
+    if(sSubjectDN == null || sSubjectDN.length() == 0) {
+      sTaxCode = "XXX KLJ";
+    }
+    if(sIssuerDN == null || sIssuerDN.length() == 0) {
+      sTaxCode = "SWINGUP";
+    }
     
     oUser = new User();
     oUser.setCertSubjectDN(sSubjectDN);
