@@ -111,7 +111,13 @@ class HttpRpcClientTransport implements RpcClientTransport
         connection.addRequestProperty(oKey.toString(), sValue);
       }
     }
-    connection.addRequestProperty("Accept-Encoding", "gzip");
+    connection.addRequestProperty("Accept-Encoding", "gzip,deflate");
+    if(data.startsWith("<")) {
+      connection.addRequestProperty("Content-Type", "text/xml");
+    }
+    else {
+      connection.addRequestProperty("Content-Type", "application/json");
+    }
     connection.setRequestMethod("POST");
     connection.setDoOutput(true);
     // 1.5+
