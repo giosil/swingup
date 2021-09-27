@@ -1562,7 +1562,7 @@ public class JSONObject {
       throw new JSONException("Bad value from toJSONString: " + object);
     }
     if(value instanceof byte[]) {
-      return "'[B@" + String.valueOf(Base64Coder.encode((byte[]) value))  + "'";
+      return "'" + JSON.BYTEARRAY_PREFIX + String.valueOf(Base64Coder.encode((byte[]) value))  + "'";
     }
     if(value instanceof Number) {
       return value.toString();
@@ -1639,6 +1639,10 @@ public class JSONObject {
       c.setTimeInMillis(((java.time.LocalDateTime) oDateTime).atZone(timeZone.toZoneId()).toInstant().toEpochMilli());
     }
     
+    if(JSON.DATE_FORMAT != null) {
+      return JSON.DATE_FORMAT.format(c.getTime());
+    }
+    
     Calendar cal = Calendar.getInstance(timeZone);
     cal.set(Calendar.YEAR,        c.get(Calendar.YEAR));
     cal.set(Calendar.MONTH,       c.get(Calendar.MONTH));
@@ -1705,7 +1709,7 @@ public class JSONObject {
         return NULL;
       }
       if(object instanceof byte[]) {
-        return "[B@" + String.valueOf(Base64Coder.encode((byte[]) object));
+        return JSON.BYTEARRAY_PREFIX + String.valueOf(Base64Coder.encode((byte[]) object));
       }
       if(object instanceof JSONObject || object instanceof JSONArray
       || NULL.equals(object) || object instanceof JSONString
@@ -1786,7 +1790,7 @@ public class JSONObject {
     } else if(value instanceof JSONArray) {
       ((JSONArray) value).write(writer, indentFactor, indent);
     } else if(value instanceof byte[]) {
-      writer.write("'[B@" + String.valueOf(Base64Coder.encode((byte[]) value))  + "'"); // #
+      writer.write("'" + JSON.BYTEARRAY_PREFIX + String.valueOf(Base64Coder.encode((byte[]) value))  + "'"); // #
     } else if(value instanceof Map) {
       new JSONObject((Map) value).write(writer, indentFactor, indent);
     } else if(value instanceof Mapable) {
