@@ -930,7 +930,7 @@ class AEntityEditor extends JPanel implements IEntityEditorConstants, ActionList
   private
   Container buildGUIActions()
   {
-    List listActions = new ArrayList();
+    List<JButton> listActions = new ArrayList<JButton>();
     
     if(boAllowEditing) {
       btnToggle = GUIUtil.buildActionButton(IConstants.sGUIDATA_DISABLE, sACTION_TOGGLE);
@@ -995,7 +995,7 @@ class AEntityEditor extends JPanel implements IEntityEditorConstants, ActionList
   private
   Container buildGUIFilterActions()
   {
-    List listFilterActions = new ArrayList();
+    List<JButton> listFilterActions = new ArrayList<JButton>();
     
     btnFind = GUIUtil.buildActionButton(IConstants.sGUIDATA_FIND, sACTION_FIND);
     btnFind.addActionListener(this);
@@ -1027,7 +1027,7 @@ class AEntityEditor extends JPanel implements IEntityEditorConstants, ActionList
    * @param listDefFilterActions List
    */
   protected
-  void checkFilterActions(List listDefFilterActions)
+  void checkFilterActions(List<JButton> listDefFilterActions)
   {
   }
   
@@ -1038,7 +1038,7 @@ class AEntityEditor extends JPanel implements IEntityEditorConstants, ActionList
    * @param boAllowEditing boolean
    */
   protected
-  void checkActions(List listDefActions, boolean boAllowEditing)
+  void checkActions(List<JButton> listDefActions, boolean boAllowEditing)
   {
   }
   

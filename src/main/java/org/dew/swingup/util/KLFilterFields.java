@@ -1,12 +1,14 @@
 package org.dew.swingup.util;
 
-import org.dew.swingup.editors.AEntityEditor;
-import org.dew.swingup.util.FormPanel;
-
-import java.awt.event.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
+import org.dew.swingup.editors.AEntityEditor;
 
 @SuppressWarnings("rawtypes")
 public 
@@ -42,8 +44,7 @@ class KLFilterFields extends KeyAdapter
         ex.printStackTrace();
       }
     }
-    else
-    if(e.getKeyCode() == KeyEvent.VK_DOWN && oTable != null) {
+    else if(e.getKeyCode() == KeyEvent.VK_DOWN && oTable != null) {
       SwingUtilities.invokeLater(new Runnable() {
         public void run() {
           if(oTable.getModel().getRowCount() > 0) {

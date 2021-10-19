@@ -1,6 +1,6 @@
 package org.dew.swingup.components;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * Interfaccia per l'implementazione di un ascoltatore del componente di decodifica.
@@ -8,7 +8,6 @@ import java.util.*;
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
-@SuppressWarnings({"rawtypes"})
 public
 interface IDecodeListener
 {
@@ -22,7 +21,7 @@ interface IDecodeListener
    *
    * @param oFilter Parametri di ricerca.
    */
-  public void beforeFind(List oFilter);
+  public void beforeFind(List<Object> oFilter);
   
   /**
    * Metodo invocato dopo il setValues del componente decodificabile.

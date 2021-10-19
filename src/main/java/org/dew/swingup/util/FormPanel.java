@@ -2147,16 +2147,14 @@ class FormPanel extends JPanel implements ITagable
    * @return Oggetto Map con i valori dei campi
    */
   public
-  Map getValues()
+  Map<String, Object> getValues()
   {
-    Map oResult = new HashMap();
+    Map<String, Object> result = new HashMap<String, Object>();
     
     for(int i = 0; i < listLinkedFormPanel.size(); i++) {
       FormPanel oFormPanel = (FormPanel) listLinkedFormPanel.get(i);
-      if(i == iMasterLFP) {
-        continue;
-      }
-      oResult.putAll(oFormPanel.getValues());
+      if(i == iMasterLFP) continue;
+      result.putAll(oFormPanel.getValues());
     }
     
     Iterator oItEntry = mapFields.entrySet().iterator();
@@ -2172,20 +2170,20 @@ class FormPanel extends JPanel implements ITagable
           Map.Entry entryVFP = (Map.Entry) oItEntryVFP.next();
           String sIdField = entryVFP.getKey().toString();
           String sAlias = getAliasById(sId + "." + sIdField);
-          oResult.put(sAlias, entryVFP.getValue());
+          result.put(sAlias, entryVFP.getValue());
         }
       }
       else {
         String sAlias = getAliasById(sId);
-        oResult.put(sAlias, getValue(sId));
+        result.put(sAlias, getValue(sId));
       }
     }
     
     if(oMasterLinkedFormPanel != null) {
-      oResult.putAll(oMasterLinkedFormPanel.getValues());
+      result.putAll(oMasterLinkedFormPanel.getValues());
     }
     
-    return oResult;
+    return result;
   }
   
   /**
@@ -2195,16 +2193,14 @@ class FormPanel extends JPanel implements ITagable
    * @return Oggetto Map con i valori dei campi
    */
   public
-  Map getContents()
+  Map<String, Object> getContents()
   {
-    Map oResult = new HashMap();
+    Map<String, Object> result = new HashMap<String, Object>();
     
     for(int i = 0; i < listLinkedFormPanel.size(); i++) {
       FormPanel oFormPanel = (FormPanel) listLinkedFormPanel.get(i);
-      if(i == iMasterLFP) {
-        continue;
-      }
-      oResult.putAll(oFormPanel.getContents());
+      if(i == iMasterLFP) continue;
+      result.putAll(oFormPanel.getContents());
     }
     
     Iterator oItEntry = mapFields.entrySet().iterator();
@@ -2220,20 +2216,20 @@ class FormPanel extends JPanel implements ITagable
           Map.Entry entryCFP = (Map.Entry) oItEntryCFP.next();
           String sIdField = entryCFP.getKey().toString();
           String sAlias = getAliasById(sId + "." + sIdField);
-          oResult.put(sAlias, entryCFP.getValue());
+          result.put(sAlias, entryCFP.getValue());
         }
       }
       else {
         String sAlias = getAliasById(sId);
-        oResult.put(sAlias, getContent(sId));
+        result.put(sAlias, getContent(sId));
       }
     }
     
     if(oMasterLinkedFormPanel != null) {
-      oResult.putAll(oMasterLinkedFormPanel.getContents());
+      result.putAll(oMasterLinkedFormPanel.getContents());
     }
     
-    return oResult;
+    return result;
   }
   
   /**
@@ -2278,9 +2274,9 @@ class FormPanel extends JPanel implements ITagable
    * @return List
    */
   public
-  List getListValues()
+  List<Object> getListValues()
   {
-    List oResult = new ArrayList(listFields.size());
+    List<Object> oResult = new ArrayList<Object>(listFields.size());
     
     for(int i = 0; i < listFields.size(); i++) {
       FieldInfo oFieldInfo = (FieldInfo) listFields.get(i);
@@ -2302,9 +2298,9 @@ class FormPanel extends JPanel implements ITagable
    * @return List
    */
   public
-  List getListComponents()
+  List<Component> getListComponents()
   {
-    List oResult = new ArrayList(listFields.size());
+    List<Component> oResult = new ArrayList<Component>(listFields.size());
     for(int i = 0; i < listFields.size(); i++) {
       FieldInfo oFieldInfo = (FieldInfo) listFields.get(i);
       oResult.add(oFieldInfo.component);
@@ -2318,9 +2314,9 @@ class FormPanel extends JPanel implements ITagable
    * @return List
    */
   public
-  List getListId()
+  List<String> getListId()
   {
-    List oResult = new ArrayList(listFields.size());
+    List<String> oResult = new ArrayList<String>(listFields.size());
     for(int i = 0; i < listFields.size(); i++) {
       FieldInfo oFieldInfo = (FieldInfo) listFields.get(i);
       Component oComponent = oFieldInfo.component;
@@ -2340,9 +2336,9 @@ class FormPanel extends JPanel implements ITagable
    * @return List
    */
   public
-  List getListLabel()
+  List<String> getListLabel()
   {
-    List oResult = new ArrayList(listFields.size());
+    List<String> oResult = new ArrayList<String>(listFields.size());
     for(int i = 0; i < listFields.size(); i++) {
       FieldInfo oFieldInfo = (FieldInfo) listFields.get(i);
       Component oComponent = oFieldInfo.component;
@@ -2362,9 +2358,9 @@ class FormPanel extends JPanel implements ITagable
    * @return List
    */
   public
-  List getListJLabel()
+  List<JLabel> getListJLabel()
   {
-    List oResult = new ArrayList(listFields.size());
+    List<JLabel> oResult = new ArrayList<JLabel>(listFields.size());
     for(int i = 0; i < listFields.size(); i++) {
       FieldInfo oFieldInfo = (FieldInfo) listFields.get(i);
       Component oComponent = oFieldInfo.component;
@@ -2665,26 +2661,22 @@ class FormPanel extends JPanel implements ITagable
     if(oValue == null) {
       return true;
     }
-    else
-    if(oValue instanceof String) {
+    else if(oValue instanceof String) {
       if(((String) oValue).trim().length() == 0) {
         return true;
       }
     }
-    else
-    if(oValue instanceof Collection) {
+    else if(oValue instanceof Collection) {
       if(((Collection) oValue).size() == 0) {
         return true;
       }
     }
-    else
-    if(oValue instanceof Map) {
+    else if(oValue instanceof Map) {
       if(((Map) oValue).isEmpty()) {
         return true;
       }
     }
-    else
-    if(oValue instanceof CodeAndDescription) {
+    else if(oValue instanceof CodeAndDescription) {
       CodeAndDescription cd = (CodeAndDescription) oValue;
       if(cd.getCode() == null || cd.getCode().equals("")) {
         return true;
@@ -2713,26 +2705,22 @@ class FormPanel extends JPanel implements ITagable
       if(oValue == null) {
         continue;
       }
-      else
-      if(oValue instanceof String) {
+      else if(oValue instanceof String) {
         if(((String) oValue).trim().length() == 0) {
           continue;
         }
       }
-      else
-      if(oValue instanceof Collection) {
+      else if(oValue instanceof Collection) {
         if(((Collection) oValue).size() == 0) {
           continue;
         }
       }
-      else
-      if(oValue instanceof Map) {
+      else if(oValue instanceof Map) {
         if(((Map) oValue).isEmpty()) {
           continue;
         }
       }
-      else
-      if(oValue instanceof CodeAndDescription) {
+      else if(oValue instanceof CodeAndDescription) {
         CodeAndDescription cd = (CodeAndDescription) oValue;
         if(cd.getCode() == null || cd.getCode().equals("")) {
           continue;
@@ -2772,26 +2760,22 @@ class FormPanel extends JPanel implements ITagable
       if(oValue == null) {
         continue;
       }
-      else
-      if(oValue instanceof String) {
+      else if(oValue instanceof String) {
         if(((String) oValue).trim().length() == 0) {
           continue;
         }
       }
-      else
-      if(oValue instanceof Collection) {
+      else if(oValue instanceof Collection) {
         if(((Collection) oValue).size() == 0) {
           continue;
         }
       }
-      else
-      if(oValue instanceof Map) {
+      else if(oValue instanceof Map) {
         if(((Map) oValue).isEmpty()) {
           continue;
         }
       }
-      else
-      if(oValue instanceof CodeAndDescription) {
+      else if(oValue instanceof CodeAndDescription) {
         CodeAndDescription cd = (CodeAndDescription) oValue;
         if(cd.getCode() == null || cd.getCode().equals("")) {
           continue;
@@ -2848,8 +2832,7 @@ class FormPanel extends JPanel implements ITagable
       if(oValue == null) {
         continue;
       }
-      else
-      if(oValue instanceof String) {
+      else if(oValue instanceof String) {
         String sValue = ((String) oValue).trim();
         if(sValue.length() == 0) {
           continue;
@@ -2864,20 +2847,17 @@ class FormPanel extends JPanel implements ITagable
         
         continue;
       }
-      else
-      if(oValue instanceof Collection) {
+      else if(oValue instanceof Collection) {
         if(((Collection) oValue).size() == 0) {
           continue;
         }
       }
-      else
-      if(oValue instanceof Map) {
+      else if(oValue instanceof Map) {
         if(((Map) oValue).isEmpty()) {
           continue;
         }
       }
-      else
-      if(oValue instanceof CodeAndDescription) {
+      else if(oValue instanceof CodeAndDescription) {
         CodeAndDescription cd = (CodeAndDescription) oValue;
         if(cd.getCode() == null || cd.getCode().equals("")) {
           continue;
@@ -2949,30 +2929,24 @@ class FormPanel extends JPanel implements ITagable
     if(oComponent instanceof JPVEdit) {
       ((JPVEdit) oComponent).setEditable(boEditable);
     }
-    else
-    if(oComponent instanceof JTextComponent) {
+    else if(oComponent instanceof JTextComponent) {
       ((JTextComponent) oComponent).setEditable(boEditable);
       Color colTextBackground = UIManager.getColor("TextField.background");
       ((JTextComponent) oComponent).setBackground(colTextBackground);
     }
-    else
-    if(oComponent instanceof JCheckBox) {
+    else if(oComponent instanceof JCheckBox) {
       ((JCheckBox) oComponent).setEnabled(boEditable);
     }
-    else
-    if(oComponent instanceof JComboBox) {
+    else if(oComponent instanceof JComboBox) {
       ((JComboBox) oComponent).setEnabled(boEditable);
     }
-    else
-    if(oComponent instanceof ADecodifiableComponent) {
+    else if(oComponent instanceof ADecodifiableComponent) {
       ((ADecodifiableComponent) oComponent).setEditable(boEditable);
     }
-    else
-    if(oComponent instanceof JTextNote) {
+    else if(oComponent instanceof JTextNote) {
       ((JTextNote) oComponent).setEditable(boEditable);
     }
-    else
-    if(oComponent instanceof JTextFile) {
+    else if(oComponent instanceof JTextFile) {
       ((JTextFile) oComponent).setEditable(boEditable);
     }
   }
@@ -3511,12 +3485,10 @@ class FormPanel extends JPanel implements ITagable
       ((IValuable) oComponent).setValue(oValue);
       if(oAC != null) oAC.setDontShowPopup(false);
     }
-    else
-    if(oComponent instanceof JPVEdit) {
+    else if(oComponent instanceof JPVEdit) {
       ((JPVEdit) oComponent).setValue(oValue);
     }
-    else
-    if(oComponent instanceof JTextComponent) {
+    else if(oComponent instanceof JTextComponent) {
       AutoCompleter oAC = AutoCompleter.getAutoCompleter((JTextComponent) oComponent);
       if(oAC != null) oAC.setDontShowPopup(true);
       if(oValue != null) {
@@ -3528,8 +3500,7 @@ class FormPanel extends JPanel implements ITagable
       }
       if(oAC != null) oAC.setDontShowPopup(false);
     }
-    else
-    if(oComponent instanceof JCheckBox) {
+    else if(oComponent instanceof JCheckBox) {
       if(oValue instanceof Boolean) {
         ((JCheckBox) oComponent).setSelected(((Boolean) oValue).booleanValue());
       }
@@ -3537,8 +3508,7 @@ class FormPanel extends JPanel implements ITagable
         ((JCheckBox) oComponent).setSelected(false);
       }
     }
-    else
-    if(oComponent instanceof JComboBox) {
+    else if(oComponent instanceof JComboBox) {
       JComboBox jcb = ((JComboBox) oComponent);
       if(oValue != null) {
         // Ricerca del valore nella lista di Item presenti
@@ -3563,8 +3533,7 @@ class FormPanel extends JPanel implements ITagable
         jcb.setSelectedItem(null);
       }
     }
-    else
-    if(oComponent instanceof ADecodifiableComponent) {
+    else if(oComponent instanceof ADecodifiableComponent) {
       if(oValue == null) {
         ((ADecodifiableComponent) oComponent).setValues(null);
       }
@@ -3579,12 +3548,10 @@ class FormPanel extends JPanel implements ITagable
         ((ADecodifiableComponent) oComponent).setValues(listValues);
       }
     }
-    else
-    if(oComponent instanceof ADataPanel) {
+    else if(oComponent instanceof ADataPanel) {
       ((ADataPanel) oComponent).setData(oValue);
     }
-    else
-    if(oComponent instanceof JTextFile) {
+    else if(oComponent instanceof JTextFile) {
       if(oValue != null) {
         ((JTextFile) oComponent).setText(oValue.toString());
       }
@@ -3592,8 +3559,7 @@ class FormPanel extends JPanel implements ITagable
         ((JTextFile) oComponent).setText("");
       }
     }
-    else
-    if(oComponent instanceof JTextNote) {
+    else if(oComponent instanceof JTextNote) {
       if(oValue != null) {
         ((JTextNote) oComponent).setText(oValue.toString());
       }
@@ -3601,8 +3567,7 @@ class FormPanel extends JPanel implements ITagable
         ((JTextNote) oComponent).setText("");
       }
     }
-    else
-    if(oComponent instanceof JRichTextNote) {
+    else if(oComponent instanceof JRichTextNote) {
       if(oValue != null) {
         ((JRichTextNote) oComponent).setText(oValue.toString());
       }
@@ -3610,8 +3575,7 @@ class FormPanel extends JPanel implements ITagable
         ((JRichTextNote) oComponent).setText("");
       }
     }
-    else
-    if(oComponent instanceof JSpinner) {
+    else if(oComponent instanceof JSpinner) {
       if(oValue != null) {
         ((JSpinner) oComponent).setValue(oValue);
       }
@@ -3709,32 +3673,25 @@ class FormPanel extends JPanel implements ITagable
     if(oComponent instanceof JPVEdit) {
       return true;
     }
-    else
-    if(oComponent instanceof JTextComponent) {
+    else if(oComponent instanceof JTextComponent) {
       return true;
     }
-    else
-    if(oComponent instanceof ADecodifiableComponent) {
+    else if(oComponent instanceof ADecodifiableComponent) {
       return true;
     }
-    else
-    if(oComponent instanceof JTextFile) {
+    else if(oComponent instanceof JTextFile) {
       return true;
     }
-    else
-    if(oComponent instanceof JTextNote) {
+    else if(oComponent instanceof JTextNote) {
       return true;
     }
-    else
-    if(oComponent instanceof JRichTextNote) {
+    else if(oComponent instanceof JRichTextNote) {
       return true;
     }
-    else
-    if(oComponent instanceof JSpinner) {
+    else if(oComponent instanceof JSpinner) {
       return true;
     }
-    else
-    if(oComponent instanceof IColorFocusable) {
+    else if(oComponent instanceof IColorFocusable) {
       return true;
     }
     return false;

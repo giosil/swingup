@@ -1,11 +1,11 @@
 package org.dew.swingup.util;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import org.dew.swingup.ResourcesMgr;
-
-import org.dew.swingup.util.FormPanel;
 
 public
 class BGColorFocusListener implements FocusListener
@@ -18,7 +18,7 @@ class BGColorFocusListener implements FocusListener
   BGColorFocusListener(Component theComponent)
   {
     this.oComponent = theComponent;
-  String sOnFocus = ResourcesMgr.config.getProperty(FormPanel.sFORMPANEL_ONFOCUS);
+    String sOnFocus = ResourcesMgr.config.getProperty(FormPanel.sFORMPANEL_ONFOCUS);
     if(sOnFocus != null && sOnFocus.length() == 7) {
       oBGColorOnFocus = Color.decode(sOnFocus);
     }

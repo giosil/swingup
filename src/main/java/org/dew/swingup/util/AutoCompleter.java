@@ -63,7 +63,7 @@ class AutoCompleter
   };
   
   public
-  AutoCompleter(JTextComponent comp)
+  AutoCompleter(Object comp)
   {
     this(comp, false);
   }
@@ -76,12 +76,16 @@ class AutoCompleter
    * @param boEnableToggle boolean
    */
   public
-  AutoCompleter(JTextComponent comp, boolean boEnableToggle)
+  AutoCompleter(Object comp, boolean boEnableToggle)
   {
-    textComp = comp;
+    if(comp instanceof JTextComponent) {
+      this.textComp = (JTextComponent) comp;
+    }
+    else {
+      return;
+    }
     
-    boEnableAutoCompletion =
-      ResourcesMgr.getBooleanProperty(ResourcesMgr.sAPP_AUTOCOMPLETION, true);
+    boEnableAutoCompletion = ResourcesMgr.getBooleanProperty(ResourcesMgr.sAPP_AUTOCOMPLETION, true);
     
     String sName = textComp.getName();
     Boolean oFlagEnabled = (Boolean) mapFieldsFlagEnabled.get(sName);
@@ -120,27 +124,16 @@ class AutoCompleter
     }
     
     if(textComp instanceof JTextField) {
-      textComp.registerKeyboardAction(showAction,
-        KeyStroke.getKeyStroke(KeyEvent.VK_SPACE,
-        KeyEvent.CTRL_MASK),
-        JComponent.WHEN_FOCUSED);
-      textComp.registerKeyboardAction(showAction,
-        KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0),
-        JComponent.WHEN_FOCUSED);
+      textComp.registerKeyboardAction(showAction, KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, KeyEvent.CTRL_MASK), JComponent.WHEN_FOCUSED);
+      textComp.registerKeyboardAction(showAction, KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), JComponent.WHEN_FOCUSED);
       if(boEnableToggle) {
-        textComp.registerKeyboardAction(toggleAction,
-          getToggleKeyStroke(),
-          JComponent.WHEN_FOCUSED);
+        textComp.registerKeyboardAction(toggleAction, getToggleKeyStroke(), JComponent.WHEN_FOCUSED);
       }
       textComp.getDocument().addDocumentListener(documentListener);
     }
     
-    textComp.registerKeyboardAction(upAction,
-      KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0),
-      JComponent.WHEN_FOCUSED);
-    textComp.registerKeyboardAction(hidePopupAction,
-      KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
-      JComponent.WHEN_FOCUSED);
+    textComp.registerKeyboardAction(upAction, KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), JComponent.WHEN_FOCUSED);
+    textComp.registerKeyboardAction(hidePopupAction, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_FOCUSED);
     textComp.addFocusListener(new FocusListener() {
       public void focusGained(FocusEvent e) {
       }
@@ -213,11 +206,9 @@ class AutoCompleter
    * @param boEnableAutoCompletion boolean
    */
   public static
-  void setEnabledAutoCompletion(String sComponentName,
-    boolean boEnableAutoCompletion)
+  void setEnabledAutoCompletion(String sComponentName, boolean boEnableAutoCompletion)
   {
-    mapFieldsFlagEnabled.put(sComponentName,
-      new Boolean(boEnableAutoCompletion));
+    mapFieldsFlagEnabled.put(sComponentName, new Boolean(boEnableAutoCompletion));
   }
   
   public
@@ -259,11 +250,13 @@ class AutoCompleter
       return;
     }
     
+    if(textComp == null) {
+      return;
+    }
+    
     try {
       popup.setVisible(false);
-      if(textComp.isEnabled() &&
-        updateListData() &&
-        list.getModel().getSize() != 0) {
+      if(textComp.isEnabled() && updateListData() && list.getModel().getSize() != 0) {
         if(!(textComp instanceof JTextField)) {
           textComp.getDocument().addDocumentListener(documentListener);
         }
@@ -302,7 +295,7 @@ class AutoCompleter
   
   static Action showAction = new AbstractAction() {
     public void actionPerformed(ActionEvent e) {
-      JComponent tf = (JComponent)e.getSource();
+      JComponent tf = (JComponent) e.getSource();
       AutoCompleter completer = (AutoCompleter)tf.getClientProperty(AUTOCOMPLETER);
       if(tf.isEnabled()) {
         if(completer.popup.isVisible()) {
@@ -338,7 +331,7 @@ class AutoCompleter
   
   static Action upAction = new AbstractAction() {
     public void actionPerformed(ActionEvent e) {
-      JComponent tf = (JComponent)e.getSource();
+      JComponent tf = (JComponent) e.getSource();
       AutoCompleter completer = (AutoCompleter)tf.getClientProperty(AUTOCOMPLETER);
       if(tf.isEnabled()) {
         if(completer.popup.isVisible()) {
@@ -350,7 +343,7 @@ class AutoCompleter
   
   static Action hidePopupAction = new AbstractAction() {
     public void actionPerformed(ActionEvent e) {
-      JComponent tf = (JComponent)e.getSource();
+      JComponent tf = (JComponent) e.getSource();
       AutoCompleter completer = (AutoCompleter)tf.getClientProperty(AUTOCOMPLETER);
       if(tf.isEnabled()) {
         completer.popup.setVisible(false);

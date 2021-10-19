@@ -1,7 +1,9 @@
 package org.dew.swingup.util;
 
-import java.util.*;
-import javax.swing.text.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Vector;
 
 /**
  * Implementazione di AutoCompleter che utilizza una Collection di valori
@@ -18,25 +20,25 @@ class CollectionAutoCompleter extends AutoCompleter
   private boolean ignoreCase;
   
   public
-  CollectionAutoCompleter(JTextComponent comp)
+  CollectionAutoCompleter(Object comp)
   {
     super(comp);
   }
   
   public
-  CollectionAutoCompleter(JTextComponent comp, boolean boEnableToggle)
+  CollectionAutoCompleter(Object comp, boolean boEnableToggle)
   {
     super(comp, boEnableToggle);
   }
   
   public
-  CollectionAutoCompleter(JTextComponent comp, Collection colData)
+  CollectionAutoCompleter(Object comp, Collection colData)
   {
     this(comp, colData, false);
   }
   
   public
-  CollectionAutoCompleter(JTextComponent comp, Collection colData, boolean ignoreCase)
+  CollectionAutoCompleter(Object comp, Collection colData, boolean ignoreCase)
   {
     super(comp, true);
     if(colData == null) {
@@ -80,6 +82,7 @@ class CollectionAutoCompleter extends AutoCompleter
   protected
   boolean updateListData()
   {
+    if(textComp == null) return false;
     String sText = textComp.getText();
     int iLength = sText.length();
     if(iLength == 0) {
@@ -113,6 +116,9 @@ class CollectionAutoCompleter extends AutoCompleter
   protected
   void acceptedListItem(String sSelectedItem)
   {
+    if(textComp == null) {
+      return;
+    }
     if(sSelectedItem == null) {
       return;
     }
