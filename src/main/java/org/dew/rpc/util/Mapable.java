@@ -2,11 +2,10 @@ package org.dew.rpc.util;
 
 import java.util.Map;
 
-@SuppressWarnings({"rawtypes"})
 public
 interface Mapable
 {
-  public void fromMap(Map map);
+  public void fromMap(Map<String, Object> map);
   
-  public Map toMap();
+  public Map<String, Object> toMap();
 }
