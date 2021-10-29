@@ -9,7 +9,6 @@ import java.util.List;
  * @author <a href="mailto:giorgio.silvestris@gmail.com">Giorgio Silvestris</a>
  * @version 1.0
  */
-@SuppressWarnings({"rawtypes"})
 public interface ILookUpFinder
 {
   /**
@@ -21,5 +20,5 @@ public interface ILookUpFinder
    * @return        Risultato della ricerca (List di List).
    * @throws Exception Eccezione generata.
    */
-  public List find(String sEntity, List oFilter) throws Exception;
+  public List<Object> find(String sEntity, List<Object> oFilter) throws Exception;
 }

@@ -186,12 +186,18 @@ class SessionUtil
       iBegin += sKey.length() + 1;
       String sSerialNumber = sSubjectDNName.substring(iBegin, iEnd);
       int iSep = sSerialNumber.indexOf(':');
+      String sResult = "";
       if(iSep >= 0) {
-        return sSerialNumber.substring(iSep + 1);
+        sResult = sSerialNumber.substring(iSep + 1);
       }
       else {
-        return sSerialNumber;
+        sResult = sSerialNumber;
       }
+      if(sResult.length() > 16) {
+        // TINIT-TAXCODE
+        return sResult.substring(sResult.length()-16);
+      }
+      return sResult;
     }
     else {
       sKey = "CN";
