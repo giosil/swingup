@@ -20,5 +20,5 @@ public interface ILookUpFinder
    * @return        Risultato della ricerca (List di List).
    * @throws Exception Eccezione generata.
    */
-  public List<Object> find(String sEntity, List<Object> oFilter) throws Exception;
+  public List<List<Object>> find(String sEntity, List<Object> oFilter) throws Exception;
 }
