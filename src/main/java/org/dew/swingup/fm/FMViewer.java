@@ -40,6 +40,7 @@ class FMViewer extends JPanel implements DropTargetListener
   protected JTextField jtfFilter;
   protected FMPopupMenu fmPopupMenu;
   protected JList jlFiles;
+  protected Vector<FMEntry> vEntries;
   protected String sCurrentDirectory = sUSER_HOME;
   protected String sPathCopied;
   protected boolean boCopy;
@@ -94,6 +95,12 @@ class FMViewer extends JPanel implements DropTargetListener
     catch(Exception ex) {
       GUIMessage.showException("Errore durante l'inizializzazione di FMViewer", ex);
     }
+  }
+  
+  public
+  Vector<FMEntry> getEntries()
+  {
+    return vEntries;
   }
   
   public
@@ -308,7 +315,7 @@ class FMViewer extends JPanel implements DropTargetListener
     int iDirectories = 0;
     int iFiles       = 0;
     if(listResult != null && listResult.size() > 0) {
-      Vector vEntries = new Vector();
+      vEntries = new Vector<FMEntry>();
       for(int i = 0; i < listResult.size(); i++) {
         FMEntry fmEntry = new FMEntry((Map) listResult.get(i));
         if(fmEntry.isDirectory()) {
@@ -320,7 +327,7 @@ class FMViewer extends JPanel implements DropTargetListener
         }
         vEntries.add(fmEntry);
       }
-      FMEntry fmEntryCurrDir = (FMEntry) vEntries.get(0);
+      FMEntry fmEntryCurrDir = vEntries.get(0);
       sCurrentDirectory = fmEntryCurrDir.getPath();
       if(boIsRoot && sRootDirectory != null && sRootDirectory.length() > 0) {
         sRootDirectory = sCurrentDirectory;
@@ -330,7 +337,8 @@ class FMViewer extends JPanel implements DropTargetListener
       jlFiles.setListData(vEntries);
     }
     else {
-      jlFiles.setListData(new Vector());
+      vEntries = new Vector<FMEntry>();
+      jlFiles.setListData(vEntries);
       breadCrumb.setPath(null);
     }
     int iElements = iDirectories + iFiles;
