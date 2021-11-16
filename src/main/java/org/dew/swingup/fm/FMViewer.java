@@ -98,7 +98,7 @@ class FMViewer extends JPanel implements DropTargetListener
   }
   
   public
-  Vector getEntries()
+  Vector<FMEntry> getEntries()
   {
     return vEntries;
   }
@@ -164,7 +164,7 @@ class FMViewer extends JPanel implements DropTargetListener
   {
     jlFiles.clearSelection();
   }
-
+  
   public
   FMEntry getSelectedItem()
   {
