@@ -59,26 +59,26 @@ class FMPopupMenu extends JPopupMenu implements ActionListener
     if(sActionCommand == null) return;
     try {
       fmViewer.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      if(sActionCommand.equals("refresh"))    fmViewer.doRefresh();           else
-      if(sActionCommand.equals("goto"))       fmViewer.doGoTo();              else
-      if(sActionCommand.equals("addtofav"))   fmViewer.doAddToFavorites();    else
-      if(sActionCommand.equals("download"))   fmViewer.doDownload(null);      else
-      if(sActionCommand.equals("upload"))     fmViewer.doUpload(null, false); else
-      if(sActionCommand.equals("uploaddir"))  fmViewer.doUpload(null, true);  else
-      if(sActionCommand.equals("view"))       fmViewer.doView(null);          else
-      if(sActionCommand.equals("head"))       fmViewer.doHead(null);          else
-      if(sActionCommand.equals("tail"))       fmViewer.doTail(null);          else
-      if(sActionCommand.equals("find"))       fmViewer.doFind(null);          else
-      if(sActionCommand.equals("info"))       fmViewer.doInfo(null);          else
-      if(sActionCommand.equals("cut"))        fmViewer.doCut(null);           else
-      if(sActionCommand.equals("copy"))       fmViewer.doCopy(null);          else
-      if(sActionCommand.equals("paste"))      fmViewer.doPaste(null);         else
-      if(sActionCommand.equals("rename"))     fmViewer.doRename(null);        else
-      if(sActionCommand.equals("delete"))     fmViewer.doDelete(null);        else
-      if(sActionCommand.equals("touch"))      fmViewer.doTouch(null);         else
-      if(sActionCommand.equals("makedir"))    fmViewer.doMakeDir(null);       else
-      if(sActionCommand.equals("env"))        fmViewer.doEnv();               else
-      if(sActionCommand.equals("command"))    fmViewer.doCommand();
+      if(sActionCommand.equals("refresh"))        fmViewer.doRefresh();
+      else if(sActionCommand.equals("goto"))      fmViewer.doGoTo();
+      else if(sActionCommand.equals("addtofav"))  fmViewer.doAddToFavorites();
+      else if(sActionCommand.equals("download"))  fmViewer.doDownload(null);
+      else if(sActionCommand.equals("upload"))    fmViewer.doUpload(null, false);
+      else if(sActionCommand.equals("uploaddir")) fmViewer.doUpload(null, true);
+      else if(sActionCommand.equals("view"))      fmViewer.doView(null);
+      else if(sActionCommand.equals("head"))      fmViewer.doHead(null);
+      else if(sActionCommand.equals("tail"))      fmViewer.doTail(null);
+      else if(sActionCommand.equals("find"))      fmViewer.doFind(null);
+      else if(sActionCommand.equals("info"))      fmViewer.doInfo(null);
+      else if(sActionCommand.equals("cut"))       fmViewer.doCut(null);
+      else if(sActionCommand.equals("copy"))      fmViewer.doCopy(null, true);
+      else if(sActionCommand.equals("paste"))     fmViewer.doPaste(null, true, true);
+      else if(sActionCommand.equals("rename"))    fmViewer.doRename(null);
+      else if(sActionCommand.equals("delete"))    fmViewer.doDelete(null);
+      else if(sActionCommand.equals("touch"))     fmViewer.doTouch(null);
+      else if(sActionCommand.equals("makedir"))   fmViewer.doMakeDir(null);
+      else if(sActionCommand.equals("env"))       fmViewer.doEnv();
+      else if(sActionCommand.equals("command"))   fmViewer.doCommand();
     }
     catch(Exception ex) {
       GUIMessage.showException(ex);

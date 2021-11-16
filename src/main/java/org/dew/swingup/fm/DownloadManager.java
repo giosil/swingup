@@ -15,10 +15,11 @@ import org.dew.swingup.rpc.*;
 public
 class DownloadManager implements Runnable
 {
+  protected static String sLocalFolder;
+  
   protected FMViewer fmViewer;
   protected IRPCClient oRPCClient;
   protected List listOfFMEntry;
-  protected String sLocalFolder;
   protected int iBlock = 100 * 1024;
   protected boolean boViewAfterDownload = false;
   protected boolean boAskIfOverwrite    = true;
@@ -61,14 +62,15 @@ class DownloadManager implements Runnable
     listOfActionListener.remove(actionListener);
   }
   
-  public
-  void setDefaultLocalFolder()
+  public static
+  String getDefaultLocalFolder()
   {
-    sLocalFolder = System.getProperty("user.home") + File.separator + ".swingup";
-    File fLocalFolder = new File(sLocalFolder);
-    if(!fLocalFolder.exists()) {
-      fLocalFolder.mkdirs();
+    if(sLocalFolder == null || sLocalFolder.length() == 0) {
+      sLocalFolder = System.getProperty("user.home") + File.separator + ".swingup";
     }
+    File fLocalFolder = new File(sLocalFolder);
+    if(!fLocalFolder.exists()) fLocalFolder.mkdirs();
+    return sLocalFolder;
   }
   
   public
@@ -84,7 +86,7 @@ class DownloadManager implements Runnable
     if(oRPCClient == null && fmViewer == null) return;
     if(boViewAfterDownload) {
       if(sLocalFolder == null || sLocalFolder.length() == 0) {
-        setDefaultLocalFolder();
+        getDefaultLocalFolder();
       }
     }
     if(sLocalFolder == null || sLocalFolder.length() == 0) {

@@ -98,15 +98,92 @@ class FMViewer extends JPanel implements DropTargetListener
   }
   
   public
-  Vector<FMEntry> getEntries()
+  Vector getEntries()
   {
     return vEntries;
+  }
+  
+  public
+  void setEnabled(boolean boEnabled)
+  {
+    super.setEnabled(boEnabled);
+    if(jlFiles   != null) jlFiles.setEnabled(boEnabled);
+    if(jtfFilter != null) jtfFilter.setEnabled(boEnabled);
+  }
+  
+  public
+  String getCurrentDirectory()
+  {
+    return sCurrentDirectory;
   }
   
   public
   String getRootDirectory()
   {
     return sRootDirectory;
+  }
+  
+  public
+  void setRootDirectory(String sRootDirectory)
+  {
+    this.sRootDirectory    = sRootDirectory;
+    this.sCurrentDirectory = sRootDirectory;
+    doRefresh();
+  }
+  
+  public
+  void addListSelectionListener(ListSelectionListener listener)
+  {
+    jlFiles.addListSelectionListener(listener);
+  }
+  
+  public
+  void select(String sFileName)
+  {
+    if(sFileName == null || sFileName.length() == 0) return;
+    ListModel listModel = jlFiles.getModel();
+    int iSize = listModel.getSize();
+    if(iSize == 0) return;
+    int iIndexToSelect = -1;
+    for(int i = 0; i < iSize; i++) {
+      Object oItem = listModel.getElementAt(i);
+      if(oItem == null) continue;
+      String sItemName = oItem.toString();
+      if(sItemName == null) continue;
+      if(sItemName.equals(sFileName)) {
+        iIndexToSelect = i;
+        break;
+      }
+    }
+    if(iIndexToSelect < 0) return;
+    jlFiles.setSelectedIndex(iIndexToSelect);
+  }
+  
+  public
+  void clearSelection()
+  {
+    jlFiles.clearSelection();
+  }
+
+  public
+  FMEntry getSelectedItem()
+  {
+    return (FMEntry) jlFiles.getSelectedValue();
+  }
+  
+  public
+  FMEntry[] getSelectedItems()
+  {
+    Object[] arrayOfValues = jlFiles.getSelectedValues();
+    if(arrayOfValues == null) return null;
+    FMEntry[] aResult = new FMEntry[arrayOfValues.length];
+    for(int i = 0; i < arrayOfValues.length; i++) {
+      Object oValue = arrayOfValues[i];
+      if(oValue instanceof FMEntry) {
+        aResult[i] = (FMEntry) oValue;
+      }
+    }
+    return aResult;
   }
   
   public
@@ -499,13 +576,15 @@ class FMViewer extends JPanel implements DropTargetListener
   }
   
   public
-  void doCopy(FMEntry fmEntry)
+  void doCopy(FMEntry fmEntry, boolean boCopyInClipboard)
   {
     if(fmEntry == null) fmEntry = (FMEntry) jlFiles.getSelectedValue();
     if(fmEntry == null) return;
-    StringSelection oStringSelection = new StringSelection(fmEntry.getPath());
-    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-    clipboard.setContents(oStringSelection, null);
+    if(boCopyInClipboard) {
+      StringSelection oStringSelection = new StringSelection(fmEntry.getPath());
+      Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+      clipboard.setContents(oStringSelection, null);
+    }
     if(fmEntry.isFile()) {
       sPathCopied  = fmEntry.getPath();
       boCopy = true;
@@ -517,7 +596,7 @@ class FMViewer extends JPanel implements DropTargetListener
   }
   
   public
-  void doPaste(FMEntry fmEntry)
+  void doPaste(FMEntry fmEntry, boolean boAskConfirm, boolean boRefresh)
   {
     if(sPathCopied  == null || sPathCopied.length()  == 0) return;
     if(fmEntry == null) fmEntry = (FMEntry) jlFiles.getSelectedValue();
@@ -525,19 +604,20 @@ class FMViewer extends JPanel implements DropTargetListener
     if(fmEntry == null) {
       sDirectory = sCurrentDirectory;
     }
-    else
-    if(fmEntry.isDirectory()) {
+    else if(fmEntry.isDirectory()) {
       sDirectory = fmEntry.getPath();
     }
     else {
       sDirectory = sCurrentDirectory;
     }
-    boolean boConfirm = false;
-    if(boCopy) {
-      boConfirm = GUIMessage.getConfirmation("Copiare " + FMUtils.getFileName(sPathCopied) + " in " + sDirectory + " ?");
-    }
-    else {
-      boConfirm = GUIMessage.getConfirmation("Spostare " + FMUtils.getFileName(sPathCopied) + " in " + sDirectory + " ?");
+    boolean boConfirm = !boAskConfirm;
+    if(boAskConfirm) {
+      if(boCopy) {
+        boConfirm = GUIMessage.getConfirmation("Copiare " + FMUtils.getFileName(sPathCopied) + " in " + sDirectory + " ?");
+      }
+      else {
+        boConfirm = GUIMessage.getConfirmation("Spostare " + FMUtils.getFileName(sPathCopied) + " in " + sDirectory + " ?");
+      }
     }
     if(!boConfirm) return;
     try {
@@ -568,7 +648,31 @@ class FMViewer extends JPanel implements DropTargetListener
         showException("Exception in FM.move", ex);
       }
     }
-    doRefresh();
+    if(boRefresh) doRefresh();
+  }
+  
+  public
+  void doMove(String sFilePathToMove, String sDirectory)
+  {
+    if(sFilePathToMove == null || sFilePathToMove.length() == 0) return;
+    if(sDirectory == null || sDirectory.length() == 0) return;
+    try {
+      Vector vParameters = new Vector();
+      vParameters.add(FMUtils.encrypt(sFilePathToMove));
+      vParameters.add(FMUtils.encrypt(sDirectory));
+      oRPCClient.setTimeOut(180000);
+      Boolean oResult = (Boolean) oRPCClient.execute("FM.move", vParameters, true);
+      if(oResult == null || !oResult.booleanValue()) {
+        GUIMessage.showWarning("File " + sFilePathToMove + " non spostato.");
+        return;
+      }
+    }
+    catch(Exception ex) {
+      showException("Exception in FM.move", ex);
+    }
+    finally {
+      oRPCClient.setDefaultTimeOut();
+    }
   }
   
   public
