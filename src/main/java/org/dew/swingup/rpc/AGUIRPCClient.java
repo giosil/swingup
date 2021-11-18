@@ -167,6 +167,7 @@ class AGUIRPCClient implements IRPCClient
         throw ioex;
       }
       // Switch
+      System.err.println("[RPC] Switch to backup");
       oLogger.debug("[RPC] Switch to backup");
       boUseBakup = !boUseBakup;
       try{
@@ -296,8 +297,18 @@ class AGUIRPCClient implements IRPCClient
   {
     String sMessage = ioex.getMessage();
     if(sMessage == null) return true;
+    sMessage = sMessage.toLowerCase();
     if(sMessage.startsWith("null")) {
       // null value not supported by XML-RPC
+      return false;
+    }
+    if(sMessage.indexOf("401") >= 0 || sMessage.indexOf("403") >= 0) {
+      return false;
+    }
+    if(sMessage.indexOf("forbidden") >= 0) {
+      return false;
+    }
+    if(sMessage.indexOf("unauth") >= 0) {
       return false;
     }
     return true;
