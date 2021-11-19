@@ -1,8 +1,5 @@
 package org.dew.swingup.demo;
 
-import org.dew.swingup.*;
-import org.dew.swingup.util.GUIUtil;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -23,7 +20,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-@SuppressWarnings("rawtypes")
+import org.dew.swingup.AWorkPanel;
+import org.dew.swingup.IMenuManager;
+import org.dew.swingup.ResourcesMgr;
+import org.dew.swingup.User;
+import org.dew.swingup.util.GUIUtil;
 
 public
 class DemoWorkPanel extends AWorkPanel
@@ -104,7 +105,7 @@ class DemoWorkPanel extends AWorkPanel
   {
     User user = ResourcesMgr.getSessionManager().getUser();
     
-    Map mapEnabledFlags = user.getResourcesByFather("menu");
+    Map<?, ?> mapEnabledFlags = user.getResourcesByFather("menu");
     boolean boAtLeastOne = false;
     arrayOfJLabel = new JLabel[4];
     // boAtLeastOne deve essere a destra di || poiche' altrimenti addMenu rischia di non essere "valutato" e quindi eseguito.
@@ -181,7 +182,7 @@ class DemoWorkPanel extends AWorkPanel
   }
   
   protected
-  boolean addMenu(Map mapEnabledFlags, String sImageIcon, String sText, String sName)
+  boolean addMenu(Map<?, ?> mapEnabledFlags, String sImageIcon, String sText, String sName)
   {
     int iFree = -1;
     for(int i = 0; i < arrayOfJLabel.length; i++) {
