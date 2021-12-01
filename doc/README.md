@@ -1,6 +1,6 @@
 # Swingup Case History
 
-Healt Medical Record
+## Healt Medical Record
 
 ![01](01.png)
 
