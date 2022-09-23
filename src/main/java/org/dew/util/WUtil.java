@@ -656,6 +656,7 @@ class WUtil
   String toString(Object object, String sDefault, int iMaxLength)
   {
     String sResult = toString(object, sDefault);
+    if(sResult != null) sResult = sResult.trim();
     if(sResult != null && iMaxLength > 0 && sResult.length() > iMaxLength) {
       return sResult.substring(0, iMaxLength);
     }
@@ -674,6 +675,7 @@ class WUtil
   String toUpperString(Object object, String sDefault, int iMaxLength)
   {
     String sResult = toUpperString(object, sDefault);
+    if(sResult != null) sResult = sResult.trim();
     if(sResult != null && iMaxLength > 0 && sResult.length() > iMaxLength) {
       return sResult.substring(0, iMaxLength);
     }
@@ -692,6 +694,7 @@ class WUtil
   String toLowerString(Object object, String sDefault, int iMaxLength)
   {
     String sResult = toLowerString(object, sDefault);
+    if(sResult != null) sResult = sResult.trim();
     if(sResult != null && iMaxLength > 0 && sResult.length() > iMaxLength) {
       return sResult.substring(0, iMaxLength);
     }
